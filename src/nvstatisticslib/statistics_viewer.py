@@ -48,6 +48,8 @@ class StatisticsViewer(tk.Toplevel):
         viewpointWords = {}
         for plId in self._mdl.novel.plotLines:
             plotlineWords[plId] = 0
+        for crId in self._mdl.novel.characters:
+            viewpointWords[crId] = 0
         partId = None
         stage1Id = None
         stage2Id = None
@@ -70,6 +72,9 @@ class StatisticsViewer(tk.Toplevel):
                             stage2Words[stage2Id] += self._mdl.novel.sections[scId].wordCount
                         for plId in self._mdl.novel.sections[scId].scPlotLines:
                             plotlineWords[plId] += self._mdl.novel.sections[scId].wordCount
+                        if self._mdl.novel.sections[scId].characters:
+                            crId = self._mdl.novel.sections[scId].characters[0]
+                            viewpointWords[crId] += self._mdl.novel.sections[scId].wordCount
                     elif self._mdl.novel.sections[scId].scType == 2:
                         stage1Id = scId
                         stage1Words[stage1Id] = 0
@@ -95,3 +100,6 @@ class StatisticsViewer(tk.Toplevel):
         print('Plot lines')
         for plId in plotlineWords:
             print(plId, plotlineWords[plId])
+        print('Viewpoints')
+        for crId in viewpointWords:
+            print(crId, viewpointWords[crId])
