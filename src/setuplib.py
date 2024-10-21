@@ -1,9 +1,9 @@
-"""nv_plugin installer library module. 
+"""nv_statistics installer library module. 
 
 Version @release
 
 Copyright (c) 2024 Peter Triesberger
-For further information see https://github.com/peter88213/nv_plugin
+For further information see https://github.com/peter88213/nv_statistics
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from shutil import copytree
@@ -18,7 +18,7 @@ except ModuleNotFoundError:
     print('The tkinter module is missing. Please install the tk support package for your python3 version.')
     sys.exit(1)
 
-PLUGIN = 'nv_plugin.py'
+PLUGIN = 'nv_statistics.py'
 VERSION = ' @release'
 
 root = Tk()
@@ -82,6 +82,11 @@ def main(zipped=True):
         # Install the localization files.
         output('Copying locale ...')
         copy_tree('locale', applicationDir)
+
+        # Install the icon files.
+        output('Copying icons ...')
+        copy_tree('icons', applicationDir)
+
         output(f'Sucessfully installed "{PLUGIN}" at "{os.path.normpath(pluginDir)}"')
     else:
         output(f'ERROR: Cannot find a novelibre installation at "{applicationDir}"')

@@ -1,11 +1,11 @@
 =========
-nv_plugin
+nv_statistics
 =========
 
 **User guide**
 
-This page refers to the latest `nv_plugin
-<https://github.com/peter88213/nv_plugin/>`__ release.
+This page refers to the latest `nv_statistics
+<https://github.com/peter88213/nv_statistics/>`__ release.
 You can open it with **Help > Timeline view Online help**.
 
 
@@ -13,10 +13,10 @@ You can open it with **Help > Timeline view Online help**.
 Installing the plugin
 ---------------------
 
-- Either launch the downloaded **nv_plugin_vx.x.x.pyzw**
+- Either launch the downloaded **nv_statistics_vx.x.x.pyzw**
   file by double-clicking (Windows/Linux desktop),
-- or execute ```python nv_plugin_vx.x.x.pyzw``` (Windows),
-  resp. ```python3 nv_plugin_vx.x.x.pyzw``` (Linux)
+- or execute ```python nv_statistics_vx.x.x.pyzw``` (Windows),
+  resp. ```python3 nv_statistics_vx.x.x.pyzw``` (Linux)
   on the command line.
 
 *"x.x.x"* means the version number.

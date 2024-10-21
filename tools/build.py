@@ -1,9 +1,9 @@
-"""Build the nv_plugin novelibre plugin package.
+"""Build the nv_statistics novelibre plugin package.
         
 Note: VERSION must be updated manually before starting this script.
 
 Copyright (c) 2024 Peter Triesberger
-For further information see https://github.com/peter88213/nv_plugin
+For further information see https://github.com/peter88213/nv_statistics
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 import os
@@ -17,9 +17,16 @@ VERSION = '0.1.0'
 
 class PluginBuilder(PackageBuilder):
 
-    PRJ_NAME = 'nv_plugin'
-    LOCAL_LIB = 'nvpluginlib'
-    GERMAN_TRANSLATION = False
+    PRJ_NAME = 'nv_statistics'
+    LOCAL_LIB = 'nvstatisticslib'
+    GERMAN_TRANSLATION = True
+
+    def __init__(self, version):
+        super().__init__(version)
+        self.iconDir = '../icons'
+
+    def add_extras(self):
+        self.add_icons()
 
 
 def main():
