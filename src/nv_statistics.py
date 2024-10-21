@@ -94,6 +94,9 @@ class Plugin(PluginBase):
         self._ui.toolsMenu.add_command(label=APPLICATION, command=self._start_viewer)
         self._ui.toolsMenu.entryconfig(APPLICATION, state='disabled')
 
+        # Register as a client.
+        self._mdl.register_client(self)
+
     def on_close(self):
         """Close the window.
         
@@ -106,7 +109,7 @@ class Plugin(PluginBase):
         
         Overrides the superclass method.
         """
-        if self._statistics_viewer:
+        if self._statistics_viewer is not None:
             if self._statistics_viewer.isOpen:
                 self._statistics_viewer.on_quit()
 
@@ -118,8 +121,13 @@ class Plugin(PluginBase):
                 self.configuration.settings[keyword] = self.kwargs[keyword]
         self.configuration.write(self.iniFile)
 
+    def refresh(self):
+        if self._statistics_viewer is not None:
+            if self._statistics_viewer.isOpen:
+                self._statistics_viewer.calculate_statistics()
+
     def _start_viewer(self):
-        if self._statistics_viewer:
+        if self._statistics_viewer is not None:
             if self._statistics_viewer.isOpen:
                 if self._statistics_viewer.state() == 'iconic':
                     self._statistics_viewer.state('normal')

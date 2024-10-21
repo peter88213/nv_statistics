@@ -29,17 +29,16 @@ class StatisticsViewer(tk.Toplevel):
 
         # "Close" button.
         ttk.Button(self, text=_('Close'), command=self.on_quit).pack(side='right', padx=5, pady=5)
+        self.isOpen = True
 
-        self._mdl.register_client(self)
-        self.refresh()
+        self.calculate_statistics()
 
     def on_quit(self, event=None):
         self._plugin.kwargs['window_geometry'] = self.winfo_geometry()
         self.destroy()
         self.isOpen = False
 
-    def refresh(self):
-        """Update the statistics."""
+    def calculate_statistics(self):
         partWords = {}
         chapterWords = {}
         sectionWords = {}
