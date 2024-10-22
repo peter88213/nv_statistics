@@ -23,14 +23,6 @@ from nvstatisticslib.nvstatistics_globals import _
 from nvstatisticslib.nvstatistics_globals import open_help
 from nvstatisticslib.statistics_viewer import StatisticsViewer
 
-APPLICATION = _('Project statistics view')
-PLUGIN = f'{APPLICATION} plugin v@release'
-
-SETTINGS = dict(
-    window_geometry='510x440',
-)
-OPTIONS = {}
-
 
 class Plugin(PluginBase):
     """Statistics view plugin class."""
@@ -39,19 +31,25 @@ class Plugin(PluginBase):
     DESCRIPTION = 'Plugin template'
     URL = 'https://github.com/peter88213/nv_statistics'
 
+    FEATURE = _('Project statistics view')
+    SETTINGS = dict(
+        window_geometry='510x440',
+    )
+    OPTIONS = {}
+
     def disable_menu(self):
         """Disable menu entries when no project is open.
         
         Overrides the superclass method.
         """
-        self._ui.toolsMenu.entryconfig(APPLICATION, state='disabled')
+        self._ui.toolsMenu.entryconfig(self.FEATURE, state='disabled')
 
     def enable_menu(self):
         """Enable menu entries when a project is open.
         
         Overrides the superclass method.
         """
-        self._ui.toolsMenu.entryconfig(APPLICATION, state='normal')
+        self._ui.toolsMenu.entryconfig(self.FEATURE, state='normal')
 
     def install(self, model, view, controller, prefs=None):
         """Install the plugin.
@@ -79,8 +77,8 @@ class Plugin(PluginBase):
             configDir = '.'
         self.iniFile = f'{configDir}/statistics.ini'
         self.configuration = self._mdl.nvService.make_configuration(
-            settings=SETTINGS,
-            options=OPTIONS
+            settings=self.SETTINGS,
+            options=self.OPTIONS
             )
         self.configuration.read(self.iniFile)
         self.kwargs = {}
@@ -91,8 +89,8 @@ class Plugin(PluginBase):
         self._ui.helpMenu.add_command(label=_('nv_statistics Online help'), command=open_help)
 
         # Create an entry in the Tools menu.
-        self._ui.toolsMenu.add_command(label=APPLICATION, command=self._start_viewer)
-        self._ui.toolsMenu.entryconfig(APPLICATION, state='disabled')
+        self._ui.toolsMenu.add_command(label=self.FEATURE, command=self._start_viewer)
+        self._ui.toolsMenu.entryconfig(self.FEATURE, state='disabled')
 
         # Register as a client.
         self._mdl.register_client(self)
@@ -137,5 +135,5 @@ class Plugin(PluginBase):
                 return
 
         self._statistics_viewer = StatisticsViewer(self, self._mdl)
-        self._statistics_viewer.title(f'{self._mdl.novel.title} - {PLUGIN}')
+        self._statistics_viewer.title(f'{self._mdl.novel.title} - {self.FEATURE} plugin v@release')
         set_icon(self._statistics_viewer, icon='sLogo32', default=False)
