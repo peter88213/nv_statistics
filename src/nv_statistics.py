@@ -17,7 +17,7 @@ GNU General Public License for more details.
 """
 from pathlib import Path
 
-from novxlib.ui.set_icon_tk import set_icon
+from apptk.view.set_icon_tk import set_icon
 from nvlib.plugin.plugin_base import PluginBase
 from nvstatisticslib.nvstatistics_globals import _
 from nvstatisticslib.nvstatistics_globals import open_help
