@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1.0\n"
-"POT-Creation-Date: 2024-10-21 12:28:01\n"
-"PO-Revision-Date: 2024-10-21 12:28:01\n"
+"POT-Creation-Date: 2024-10-29 14:04:58\n"
+"PO-Revision-Date: 2024-10-29 14:04:58\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -13,11 +13,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 
+msgid "Chapters"
+msgstr "Kapitel"
+
 msgid "Close"
 msgstr "Schließen"
 
+msgid "Ctrl"
+msgstr "Strg"
+
+msgid "Parts"
+msgstr "Teile"
+
+msgid "Plot lines"
+msgstr "Plotlinien"
+
+msgid "Plot structure"
+msgstr "Plotstruktur"
+
 msgid "Project statistics view"
 msgstr "Projektstatistik-Ansicht"
+
+msgid "Sections"
+msgstr "Abschnitte"
+
+msgid "Stages (first level)"
+msgstr "Stadien (erste Ebene)"
+
+msgid "Stages (second level)"
+msgstr "Stadien (zweite Ebene)"
+
+msgid "Viewpoints"
+msgstr "Perspektiven"
 
 msgid "nv_statistics Online help"
 msgstr "nv_statistics Online-Hilfe"

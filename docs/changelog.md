@@ -5,8 +5,13 @@
 ## Changelog
 
 
-### Version 1.0.0
+### Version 0.1.0
 
-- Release under the GPLv3 license.
+- Alpha release under the GPLv3 license.
 
-Compatibility: novelibre version 4.9 API
+TODO:
+- Enable vertical scrolling.
+- Keep the "Close" button when shrinking the window. 
+
+Based on apptk 1.1.0
+Compatibility: novelibre version 4.11 API
