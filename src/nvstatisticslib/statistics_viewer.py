@@ -6,8 +6,7 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from tkinter import ttk
 
-from apptk.widgets.percentage_bar import PercentageBar
-
+from nvstatisticslib.element_percentage_bar import LinkedPercentageBar
 from novxlib.novx_globals import CH_ROOT
 from nvstatisticslib.nvstatistics_globals import _
 from nvstatisticslib.platform.platform_settings import PLATFORM
@@ -17,7 +16,7 @@ import tkinter as tk
 
 class StatisticsViewer(tk.Toplevel):
 
-    def __init__(self, plugin, model):
+    def __init__(self, plugin, model, view):
         self._plugin = plugin
         self._mdl = model
         super().__init__()
@@ -116,19 +115,40 @@ class StatisticsViewer(tk.Toplevel):
         for chId in partWords:
             title = self._mdl.novel.chapters[chId].title
             percentage = partWords[chId] / wordsTotal * 100
-            PercentageBar(frame, text=title, value=percentage, lblWidth=LBL_WIDTH, lblDist=LBL_DIST).pack(anchor='nw', expand=False)
+            LinkedPercentageBar(
+                frame,
+                chId,
+                text=title,
+                value=percentage,
+                lblWidth=LBL_WIDTH,
+                lblDist=LBL_DIST,
+                ).pack(anchor='nw', expand=False)
 
         frame = self._chapterFrame
         for chId in chapterWords:
             title = self._mdl.novel.chapters[chId].title
             percentage = chapterWords[chId] / wordsTotal * 100
-            PercentageBar(frame, text=title, value=percentage, lblWidth=LBL_WIDTH, lblDist=LBL_DIST).pack(anchor='nw', expand=False)
+            LinkedPercentageBar(
+                frame,
+                chId,
+                text=title,
+                value=percentage,
+                lblWidth=LBL_WIDTH,
+                lblDist=LBL_DIST,
+                ).pack(anchor='nw', expand=False)
 
         frame = self._sectionFrame
         for scId in sectionWords:
             title = self._mdl.novel.sections[scId].title
             percentage = sectionWords[scId] / wordsTotal * 100
-            PercentageBar(frame, text=title, value=percentage, lblWidth=LBL_WIDTH, lblDist=LBL_DIST).pack(anchor='nw', expand=False)
+            LinkedPercentageBar(
+                frame,
+                scId,
+                text=title,
+                value=percentage,
+                lblWidth=LBL_WIDTH,
+                lblDist=LBL_DIST,
+                ).pack(anchor='nw', expand=False)
 
         frame = self._povFrame
         for crId in viewpointWords:
@@ -137,7 +157,14 @@ class StatisticsViewer(tk.Toplevel):
 
             title = self._mdl.novel.characters[crId].title
             percentage = viewpointWords[crId] / wordsTotal * 100
-            PercentageBar(frame, text=title, value=percentage, lblWidth=LBL_WIDTH, lblDist=LBL_DIST).pack(anchor='nw', expand=False)
+            LinkedPercentageBar(
+                frame,
+                crId,
+                text=title,
+                value=percentage,
+                lblWidth=LBL_WIDTH,
+                lblDist=LBL_DIST,
+                ).pack(anchor='nw', expand=False)
 
         frame = self._plotstructureFrame
 
@@ -148,7 +175,14 @@ class StatisticsViewer(tk.Toplevel):
         for scId in stage1Words:
             title = self._mdl.novel.sections[scId].title
             percentage = stage1Words[scId] / wordsTotal * 100
-            PercentageBar(frame, text=title, value=percentage, lblWidth=LBL_WIDTH, lblDist=LBL_DIST).pack(anchor='nw', expand=False)
+            LinkedPercentageBar(
+                frame,
+                scId,
+                text=title,
+                value=percentage,
+                lblWidth=LBL_WIDTH,
+                lblDist=LBL_DIST,
+                ).pack(anchor='nw', expand=False)
 
         heading2 = tk.Label(frame, text=_('Stages (second level)'), bg='white', pady=5, anchor='w')
         heading2.configure(font=(font['family'], font['size'], 'bold'))
@@ -156,15 +190,30 @@ class StatisticsViewer(tk.Toplevel):
         for scId in stage2Words:
             title = self._mdl.novel.sections[scId].title
             percentage = stage2Words[scId] / wordsTotal * 100
-            PercentageBar(frame, text=title, value=percentage, lblWidth=LBL_WIDTH, lblDist=LBL_DIST).pack(anchor='nw', expand=False)
+            LinkedPercentageBar(
+                frame,
+                scId,
+                text=title,
+                value=percentage,
+                lblWidth=LBL_WIDTH,
+                lblDist=LBL_DIST,
+                ).pack(anchor='nw', expand=False)
 
         frame = self._plotlineFrame
         for plId in plotlineWords:
             title = self._mdl.novel.plotLines[plId].title
             percentage = plotlineWords[plId] / wordsTotal * 100
-            PercentageBar(frame, text=title, value=percentage, lblWidth=LBL_WIDTH, lblDist=LBL_DIST).pack(anchor='nw', expand=False)
+            LinkedPercentageBar(
+                frame,
+                plId,
+                text=title,
+                value=percentage,
+                lblWidth=LBL_WIDTH,
+                lblDist=LBL_DIST,
+                ).pack(anchor='nw', expand=False)
 
     def _clear_frames(self):
         for frame in self._view.winfo_children():
             for child in frame.winfo_children():
                 child.destroy()
+

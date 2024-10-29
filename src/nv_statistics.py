@@ -23,6 +23,8 @@ from nvstatisticslib.nvstatistics_globals import _
 from nvstatisticslib.nvstatistics_globals import open_help
 from nvstatisticslib.statistics_viewer import StatisticsViewer
 
+from nvstatisticslib.element_percentage_bar import LinkedPercentageBar
+
 
 class Plugin(PluginBase):
     """Statistics view plugin class."""
@@ -70,6 +72,9 @@ class Plugin(PluginBase):
         self._ui = view
         self._ctrl = controller
         self._statistics_viewer = None
+
+        # Initialize the class (this hack makes the interface smaller):
+        LinkedPercentageBar.treeView = self._ui.tv
 
         #--- Load configuration.
         try:
@@ -136,6 +141,6 @@ class Plugin(PluginBase):
                 self._statistics_viewer.build_tree()
                 return
 
-        self._statistics_viewer = StatisticsViewer(self, self._mdl)
+        self._statistics_viewer = StatisticsViewer(self, self._mdl, self._ui)
         self._statistics_viewer.title(f'{self._mdl.novel.title} - {self.FEATURE} plugin v@release')
         set_icon(self._statistics_viewer, icon='sLogo32', default=False)
