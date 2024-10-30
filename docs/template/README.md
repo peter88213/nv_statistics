@@ -65,7 +65,7 @@ The package is also available in zip format: [nv_statistics_v0.99.0.zip](https:/
 
 ## Usage
 
-See the [online manual](https://peter88213.github.io/nvhelp-en/usage.md)
+See the [online manual](https://peter88213.github.io/nvhelp-en/nv_statistics/)
 
 ---
 
