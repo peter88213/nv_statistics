@@ -3,8 +3,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.2.0\n"
-"POT-Creation-Date: 2024-10-29 15:55:58\n"
+"Project-Id-Version: 0.2.1\n"
+"POT-Creation-Date: 2024-10-30 06:58:49\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -32,6 +32,9 @@ msgstr ""
 msgid "Plot structure"
 msgstr ""
 
+msgid "Project statistics Online help"
+msgstr ""
+
 msgid "Project statistics view"
 msgstr ""
 
@@ -45,7 +48,4 @@ msgid "Stages (second level)"
 msgstr ""
 
 msgid "Viewpoints"
-msgstr ""
-
-msgid "nv_statistics Online help"
 msgstr ""

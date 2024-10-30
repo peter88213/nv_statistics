@@ -1,6 +1,6 @@
-=========
+=============
 nv_statistics
-=========
+=============
 
 **User guide**
 
@@ -32,3 +32,20 @@ Installing the plugin
    In this case, your confirmation or an additional action is required. 
    If this is not possible, you have the option of downloading 
    the zip file. 
+
+
+Launch the program
+------------------
+
+- Open the project statistics viewer from the main menu: **Tools > Project statistics view**.
+
+
+Change the scale
+----------------
+
+- You can enlarge the percentage bars by stretching the window.
+
+Exit
+----
+
+-  Close the window.

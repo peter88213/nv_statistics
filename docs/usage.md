@@ -15,6 +15,8 @@ If [novelibre](https://github.com/peter88213/novelibre/) is installed, the setup
 
 # Operation
 
+See the [online help](https://github.com/peter88213/nv_statistics/tree/main/docs/nv_statistics).
+
 ---
 
 # License

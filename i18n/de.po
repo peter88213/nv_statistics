@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.2.0\n"
-"POT-Creation-Date: 2024-10-29 15:55:58\n"
-"PO-Revision-Date: 2024-10-29 15:55:58\n"
+"Project-Id-Version: 0.2.1\n"
+"POT-Creation-Date: 2024-10-30 06:58:49\n"
+"PO-Revision-Date: 2024-10-30 06:58:49\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +31,9 @@ msgstr "Plotlinien"
 msgid "Plot structure"
 msgstr "Plotstruktur"
 
+msgid "Project statistics Online help"
+msgstr "Projektstatistik Online-Hilfe"
+
 msgid "Project statistics view"
 msgstr "Projektstatistik-Ansicht"
 
@@ -45,7 +48,4 @@ msgstr "Stadien (zweite Ebene)"
 
 msgid "Viewpoints"
 msgstr "Perspektiven"
-
-msgid "nv_statistics Online help"
-msgstr "nv_statistics Online-Hilfe"
 

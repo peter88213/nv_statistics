@@ -19,11 +19,10 @@ from pathlib import Path
 
 from apptk.view.set_icon_tk import set_icon
 from nvlib.plugin.plugin_base import PluginBase
+from nvstatisticslib.linked_percentage_bar import LinkedPercentageBar
 from nvstatisticslib.nvstatistics_globals import _
 from nvstatisticslib.nvstatistics_globals import open_help
 from nvstatisticslib.statistics_viewer import StatisticsViewer
-
-from nvstatisticslib.element_percentage_bar import LinkedPercentageBar
 
 
 class Plugin(PluginBase):
@@ -93,7 +92,7 @@ class Plugin(PluginBase):
         self.kwargs.update(self.configuration.options)
 
         # Add an entry to the Help menu.
-        self._ui.helpMenu.add_command(label=_('nv_statistics Online help'), command=open_help)
+        self._ui.helpMenu.add_command(label=_('Project statistics Online help'), command=open_help)
 
         # Create an entry in the Tools menu.
         self._ui.toolsMenu.add_command(label=self.FEATURE, command=self._start_viewer)
@@ -142,5 +141,5 @@ class Plugin(PluginBase):
                 return
 
         self._statistics_viewer = StatisticsViewer(self, self._mdl, self._ui)
-        self._statistics_viewer.title(f'{self._mdl.novel.title} - {self.FEATURE} plugin v@release')
+        self._statistics_viewer.title(f'{self._mdl.novel.title} - {self.FEATURE}')
         set_icon(self._statistics_viewer, icon='sLogo32', default=False)

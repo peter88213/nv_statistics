@@ -5,13 +5,21 @@
 ## Changelog
 
 
+### Version 0.2.1
+
+- Fix help page.
+- Change the window title.
+- Refactor.
+
+Based on apptk 1.1.0
+Compatibility: novelibre version 4.11 API
+
 ### Version 0.2.0
 
 - Select tree elements on double-click.
 
 Based on apptk 1.1.0
 Compatibility: novelibre version 4.11 API
-
 
 ### Version 0.1.0
 
