@@ -2,18 +2,25 @@
 
 --- 
 
-A [novelibre](https://github.com/peter88213/novelibre/) plugin. 
+A [novelibre](https://github.com/peter88213/novelibre/) plugin providing a daily statistics log viewer. 
+
 
 ---
 
 # Installation
 
-If [novelibre](https://github.com/peter88213/novelibre/) is installed, the setup script *setup.py* installs the *nv_statistics* plugin in the *novelibre* plugin directory.
+- Unzip the downloaded zipfile into a new folder.
+- Move into this new folder and launch **setup.pyw**. This installs the plugin.
 
+*Note: If you install novelibre at a later time, you can always install the plugin afterwards by running the nv_statistics/ setup script again.*
+
+The plugin adds a **Project statistics view** entry to the *novelibre* **Tools** menu. 
 
 ---
 
 # Operation
+
+---
 
 See the [online help](https://github.com/peter88213/nv_statistics/tree/main/docs/nv_statistics).
 
