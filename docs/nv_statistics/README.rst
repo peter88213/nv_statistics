@@ -6,8 +6,9 @@ nv_statistics
 
 This page refers to the latest `nv_statistics
 <https://github.com/peter88213/nv_statistics/>`__ release.
-You can open it with **Help > Timeline view Online help**.
+You can open it with **Help > Project statistics Online help**.
 
+The plugin adds a **Project statistics view** entry to the *novelibre* **Tools** menu.
 
 
 Installing the plugin
@@ -39,6 +40,14 @@ Launch the program
 
 - Open the project statistics viewer from the main menu: **Tools > Project statistics view**.
 
+Charts
+------
+
+The bars in the chart show the number of words in relation to the total number of words
+in all the used sections.
+
+By double-clicking on a label or a bar you can select the related element in the
+*novelibre* tree view.
 
 Change the scale
 ----------------

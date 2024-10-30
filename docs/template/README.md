@@ -1,10 +1,30 @@
-# nv_statistics
+[![Download the latest release](docs/img/download-button.png)](https://github.com/peter88213/nv_statistics/raw/main/dist/nv_statistics_v0.99.0.pyzw)
+[![Changelog](docs/img/changelog-button.png)](docs/changelog.md)
+[![News](docs/img/news-button.png)](https://github.com/peter88213/novelibre/discussions/1)
+[![Online help](docs/img/help-button.png)](docs/nv_statistics/)
+
+
+# ![W](icons/sLogo32.png) nv_statistics
 
 The [novelibre](https://github.com/peter88213/novelibre/) Python program helps authors organize novels.  
 
 *nv_statistics* is a plugin providing a statistics view for *novelibre*. 
 
 ![Screenshot](docs/Screenshots/screen01.png)
+
+## Features
+
+Display charts with word count percentages per
+- section
+- chapter
+- part
+- viewpoint
+- stage
+- plot line
+
+The bars in the chart show the number of words in relation to the total number of words
+in all the used sections.
+
 
 ## Requirements
 
