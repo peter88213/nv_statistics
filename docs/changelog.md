@@ -5,6 +5,13 @@
 ## Changelog
 
 
+### Version 0.2.2
+
+- Update the help link.
+
+Based on apptk 1.1.0
+Compatibility: novelibre version 4.11 API
+
 ### Version 0.2.1
 
 - Fix help page.

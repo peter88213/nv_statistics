@@ -22,7 +22,7 @@ The plugin adds a **Project statistics view** entry to the *novelibre* **Tools**
 
 ---
 
-See the [online help](https://github.com/peter88213/nv_statistics/tree/main/docs/nv_statistics).
+See the [online help](https://peter88213.github.io/nvhelp-en/nv_statistics).
 
 ---
 

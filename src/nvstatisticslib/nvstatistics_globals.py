@@ -25,7 +25,7 @@ except:
     def _(message):
         return message
 
-HELP_URL = 'https://github.com/peter88213/nv_statistics/tree/main/docs/nv_statistics'
+HELP_URL = 'https://peter88213.github.io/nvhelp-en/nv_statistics'
 
 
 def open_help(event=None):
