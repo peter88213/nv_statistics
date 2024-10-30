@@ -4,6 +4,12 @@
 
 ## Changelog
 
+### Version 0.2.3
+
+- Provide localized help link.
+
+Based on apptk 1.1.0
+Compatibility: novelibre version 4.11 API
 
 ### Version 0.2.2
 
