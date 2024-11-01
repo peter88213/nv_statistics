@@ -4,6 +4,14 @@
 
 ## Changelog
 
+### Version 0.2.4
+
+Refactor for better maintainability:
+
+- Make the Plugin constructor extend the superclass constructor.
+
+Based on apptk 2.2.0
+
 ### Version 0.2.3
 
 - Provide localized help link.
