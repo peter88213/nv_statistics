@@ -6,11 +6,11 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from tkinter import ttk
 
-from nvstatisticslib.linked_percentage_bar import LinkedPercentageBar
 from novxlib.novx_globals import CH_ROOT
+from nvstatisticslib.linked_percentage_bar import LinkedPercentageBar
 from nvstatisticslib.nvstatistics_globals import _
-from nvstatisticslib.platform.platform_settings import PLATFORM
 from nvstatisticslib.platform.platform_settings import KEYS
+from nvstatisticslib.platform.platform_settings import PLATFORM
 import tkinter as tk
 
 

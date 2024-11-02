@@ -17,7 +17,7 @@ GNU General Public License for more details.
 """
 from pathlib import Path
 
-from apptk.view.set_icon_tk import set_icon
+from mvclib.view.set_icon_tk import set_icon
 from nvlib.plugin.plugin_base import PluginBase
 from nvstatisticslib.linked_percentage_bar import LinkedPercentageBar
 from nvstatisticslib.nvstatistics_globals import _
