@@ -97,7 +97,7 @@ class Plugin(PluginBase):
         self._ui.toolsMenu.entryconfig(self.FEATURE, state='disabled')
 
         # Register as a client.
-        self._mdl.register_client(self)
+        self._mdl.add_observer(self)
 
     def on_close(self):
         """Close the window.
