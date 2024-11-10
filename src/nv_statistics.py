@@ -28,7 +28,7 @@ from nvstatisticslib.statistics_viewer import StatisticsViewer
 class Plugin(PluginBase):
     """Statistics view plugin class."""
     VERSION = '@release'
-    API_VERSION = '4.11'
+    API_VERSION = '5.0'
     DESCRIPTION = 'Plugin template'
     URL = 'https://github.com/peter88213/nv_statistics'
 
