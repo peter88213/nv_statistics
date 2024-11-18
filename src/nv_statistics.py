@@ -22,7 +22,7 @@ from nvlib.plugin.plugin_base import PluginBase
 from nvstatisticslib.linked_percentage_bar import LinkedPercentageBar
 from nvstatisticslib.nvstatistics_globals import _
 from nvstatisticslib.nvstatistics_globals import open_help
-from nvstatisticslib.statistics_viewer import StatisticsViewer
+from nvstatisticslib.statistics_window import StatisticsWindow
 
 
 class Plugin(PluginBase):
@@ -138,6 +138,6 @@ class Plugin(PluginBase):
                 self._statistics_viewer.build_tree()
                 return
 
-        self._statistics_viewer = StatisticsViewer(self, self._mdl, self._ui)
+        self._statistics_viewer = StatisticsWindow(self, self._mdl, self._ui)
         self._statistics_viewer.title(f'{self._mdl.novel.title} - {self.FEATURE}')
         set_icon(self._statistics_viewer, icon='sLogo32', default=False)

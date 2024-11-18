@@ -14,7 +14,7 @@ from nvstatisticslib.platform.platform_settings import PLATFORM
 import tkinter as tk
 
 
-class StatisticsViewer(tk.Toplevel):
+class StatisticsWindow(tk.Toplevel):
 
     def __init__(self, plugin, model, view):
         self._plugin = plugin
