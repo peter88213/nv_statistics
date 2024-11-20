@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.2.4\n"
-"POT-Creation-Date: 2024-11-01 05:56:22\n"
-"PO-Revision-Date: 2024-11-01 05:56:22\n"
+"Project-Id-Version: 0.3.0\n"
+"POT-Creation-Date: 2024-11-20 14:59:36\n"
+"PO-Revision-Date: 2024-11-20 14:59:36\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -49,6 +49,6 @@ msgstr "Stadien (zweite Ebene)"
 msgid "Viewpoints"
 msgstr "Perspektiven"
 
-msgid "nvhelp-en"
-msgstr "nvhelp-de"
+msgid "https://peter88213.github.io/nvhelp-en"
+msgstr "https://peter88213.github.io/nvhelp-de"
 
