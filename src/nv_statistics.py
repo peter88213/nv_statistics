@@ -93,7 +93,7 @@ class Plugin(PluginBase):
         self._ui.helpMenu.add_command(label=_('Project statistics Online help'), command=open_help)
 
         # Create an entry in the Tools menu.
-        self._ui.toolsMenu.add_command(label=self.FEATURE, command=self._start_viewer)
+        self._ui.toolsMenu.add_command(label=self.FEATURE, command=self.start_viewer)
         self._ui.toolsMenu.entryconfig(self.FEATURE, state='disabled')
 
         # Register as a client.
@@ -128,14 +128,13 @@ class Plugin(PluginBase):
             if self._statistics_viewer.isOpen:
                 self._statistics_viewer.calculate_statistics()
 
-    def _start_viewer(self):
+    def start_viewer(self):
         if self._statistics_viewer is not None:
             if self._statistics_viewer.isOpen:
                 if self._statistics_viewer.state() == 'iconic':
                     self._statistics_viewer.state('normal')
                 self._statistics_viewer.lift()
                 self._statistics_viewer.focus()
-                self._statistics_viewer.build_tree()
                 return
 
         self._statistics_viewer = StatisticsWindow(self, self._mdl, self._ui)
