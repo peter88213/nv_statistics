@@ -16,13 +16,12 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 """
 from pathlib import Path
+import webbrowser
 
 from mvclib.view.set_icon_tk import set_icon
 from nvlib.controller.plugin.plugin_base import PluginBase
-from nvstatisticslib.linked_percentage_bar import LinkedPercentageBar
-from nvstatisticslib.nvstatistics_globals import _
-from nvstatisticslib.nvstatistics_globals import open_help
-from nvstatisticslib.statistics_window import StatisticsWindow
+from nvstatisticslib.nvstatistics_locale import _
+from nvstatisticslib.statistics_view import StatisticsView
 
 
 class Plugin(PluginBase):
@@ -31,6 +30,7 @@ class Plugin(PluginBase):
     API_VERSION = '5.0'
     DESCRIPTION = 'Plugin template'
     URL = 'https://github.com/peter88213/nv_statistics'
+    HELP_URL = f'{_("https://peter88213.github.io/nvhelp-en")}/nv_statistics'
 
     FEATURE = _('Project statistics view')
     INI_FILENAME = 'statistics.ini'
@@ -68,10 +68,7 @@ class Plugin(PluginBase):
         Extends the superclass method.
         """
         super().install(model, view, controller)
-        self._statistics_viewer = None
-
-        # Initialize the class (this hack makes the interface smaller):
-        LinkedPercentageBar.treeView = self._ui.tv
+        self.statisticsView = None
 
         #--- Load configuration.
         try:
@@ -85,19 +82,16 @@ class Plugin(PluginBase):
             options=self.OPTIONS
             )
         self.configuration.read(self.iniFile)
-        self.kwargs = {}
-        self.kwargs.update(self.configuration.settings)
-        self.kwargs.update(self.configuration.options)
+        self.prefs = {}
+        self.prefs.update(self.configuration.settings)
+        self.prefs.update(self.configuration.options)
 
         # Add an entry to the Help menu.
-        self._ui.helpMenu.add_command(label=_('Project statistics Online help'), command=open_help)
+        self._ui.helpMenu.add_command(label=_('Project statistics Online help'), command=self.open_help_page)
 
         # Create an entry in the Tools menu.
         self._ui.toolsMenu.add_command(label=self.FEATURE, command=self.start_viewer)
         self._ui.toolsMenu.entryconfig(self.FEATURE, state='disabled')
-
-        # Register as a client.
-        self._mdl.add_observer(self)
 
     def on_close(self):
         """Close the window.
@@ -111,32 +105,30 @@ class Plugin(PluginBase):
         
         Overrides the superclass method.
         """
-        if self._statistics_viewer is not None:
-            if self._statistics_viewer.isOpen:
-                self._statistics_viewer.on_quit()
+        if self.statisticsView is not None:
+            if self.statisticsView.isOpen:
+                self.statisticsView.on_quit()
 
         #--- Save configuration
-        for keyword in self.kwargs:
+        for keyword in self.prefs:
             if keyword in self.configuration.options:
-                self.configuration.options[keyword] = self.kwargs[keyword]
+                self.configuration.options[keyword] = self.prefs[keyword]
             elif keyword in self.configuration.settings:
-                self.configuration.settings[keyword] = self.kwargs[keyword]
+                self.configuration.settings[keyword] = self.prefs[keyword]
         self.configuration.write(self.iniFile)
 
-    def refresh(self):
-        if self._statistics_viewer is not None:
-            if self._statistics_viewer.isOpen:
-                self._statistics_viewer.calculate_statistics()
+    def open_help_page(self, event=None):
+        webbrowser.open(self.HELP_URL)
 
     def start_viewer(self):
-        if self._statistics_viewer is not None:
-            if self._statistics_viewer.isOpen:
-                if self._statistics_viewer.state() == 'iconic':
-                    self._statistics_viewer.state('normal')
-                self._statistics_viewer.lift()
-                self._statistics_viewer.focus()
+        if self.statisticsView is not None:
+            if self.statisticsView.isOpen:
+                if self.statisticsView.state() == 'iconic':
+                    self.statisticsView.state('normal')
+                self.statisticsView.lift()
+                self.statisticsView.focus()
                 return
 
-        self._statistics_viewer = StatisticsWindow(self, self._mdl, self._ui)
-        self._statistics_viewer.title(f'{self._mdl.novel.title} - {self.FEATURE}')
-        set_icon(self._statistics_viewer, icon='sLogo32', default=False)
+        self.statisticsView = StatisticsView(self._mdl, self._ui, self._ctrl, self.prefs)
+        self.statisticsView.title(f'{self._mdl.novel.title} - {self.FEATURE}')
+        set_icon(self.statisticsView, icon='sLogo32', default=False)
