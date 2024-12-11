@@ -6,8 +6,8 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from mvclib.controller.sub_controller import SubController
 from nvlib.novx_globals import CH_ROOT
-from nvstatisticslib.linked_percentage_bar import LinkedPercentageBar
-from nvstatisticslib.nvstatistics_locale import _
+from nvstatistics.linked_percentage_bar import LinkedPercentageBar
+from nvstatistics.nvstatistics_locale import _
 import tkinter as tk
 
 

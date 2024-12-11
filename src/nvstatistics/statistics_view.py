@@ -7,10 +7,10 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 from tkinter import ttk
 
 from mvclib.view.observer import Observer
-from nvstatisticslib.nvstatistics_locale import _
-from nvstatisticslib.platform.platform_settings import KEYS
-from nvstatisticslib.platform.platform_settings import PLATFORM
-from nvstatisticslib.statistics_view_ctrl import StatisticsViewCtrl
+from nvstatistics.nvstatistics_locale import _
+from nvstatistics.platform.platform_settings import KEYS
+from nvstatistics.platform.platform_settings import PLATFORM
+from nvstatistics.statistics_view_ctrl import StatisticsViewCtrl
 import tkinter as tk
 
 

@@ -18,7 +18,7 @@ VERSION = '0.3.2'
 class PluginBuilder(PackageBuilder):
 
     PRJ_NAME = 'nv_statistics'
-    LOCAL_LIB = 'nvstatisticslib'
+    LOCAL_LIB = 'nvstatistics'
     GERMAN_TRANSLATION = True
 
     def __init__(self, version):

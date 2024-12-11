@@ -6,9 +6,9 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 import platform
 
-from nvstatisticslib.platform.generic_keys import GenericKeys
-from nvstatisticslib.platform.mac_keys import MacKeys
-from nvstatisticslib.platform.windows_keys import WindowsKeys
+from nvstatistics.platform.generic_keys import GenericKeys
+from nvstatistics.platform.mac_keys import MacKeys
+from nvstatistics.platform.windows_keys import WindowsKeys
 
 if platform.system() == 'Windows':
     PLATFORM = 'win'

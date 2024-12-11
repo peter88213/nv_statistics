@@ -20,8 +20,8 @@ import webbrowser
 
 from mvclib.view.set_icon_tk import set_icon
 from nvlib.controller.plugin.plugin_base import PluginBase
-from nvstatisticslib.nvstatistics_locale import _
-from nvstatisticslib.statistics_view import StatisticsView
+from nvstatistics.nvstatistics_locale import _
+from nvstatistics.statistics_view import StatisticsView
 
 
 class Plugin(PluginBase):
