@@ -6,12 +6,12 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from pathlib import Path
 
-from mvclib.controller.service_base import ServiceBase
+from mvclib.controller.sub_controller import SubController
 from mvclib.view.set_icon_tk import set_icon
 from nvstatistics.statistics_view import StatisticsView
 
 
-class StatisticsService(ServiceBase):
+class StatisticsService(SubController):
     INI_FILENAME = 'statistics.ini'
     INI_FILEPATH = '.novx/config'
     SETTINGS = dict(
@@ -20,7 +20,7 @@ class StatisticsService(ServiceBase):
     OPTIONS = {}
 
     def __init__(self, model, view, controller):
-        super().__init__(model, view, controller)
+        super().initialize_controller(model, view, controller)
         self.statisticsView = None
 
         #--- Load configuration.
