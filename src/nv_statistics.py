@@ -15,30 +15,22 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 """
-from pathlib import Path
 import webbrowser
 
-from mvclib.view.set_icon_tk import set_icon
 from nvlib.controller.plugin.plugin_base import PluginBase
 from nvstatistics.nvstatistics_locale import _
-from nvstatistics.statistics_view import StatisticsView
+from nvstatistics.statistics_service import StatisticsService
 
 
 class Plugin(PluginBase):
     """Statistics view plugin class."""
     VERSION = '@release'
     API_VERSION = '5.0'
-    DESCRIPTION = 'Plugin template'
+    DESCRIPTION = 'A project statistics view'
     URL = 'https://github.com/peter88213/nv_statistics'
     HELP_URL = f'{_("https://peter88213.github.io/nvhelp-en")}/nv_statistics'
 
     FEATURE = _('Project statistics view')
-    INI_FILENAME = 'statistics.ini'
-    INI_FILEPATH = '.novx/config'
-    SETTINGS = dict(
-        window_geometry='510x440',
-    )
-    OPTIONS = {}
 
     def disable_menu(self):
         """Disable menu entries when no project is open.
@@ -68,23 +60,7 @@ class Plugin(PluginBase):
         Extends the superclass method.
         """
         super().install(model, view, controller)
-        self.statisticsView = None
-
-        #--- Load configuration.
-        try:
-            homeDir = str(Path.home()).replace('\\', '/')
-            configDir = f'{homeDir}/{self.INI_FILEPATH}'
-        except:
-            configDir = '.'
-        self.iniFile = f'{configDir}/{self.INI_FILENAME}'
-        self.configuration = self._mdl.nvService.new_configuration(
-            settings=self.SETTINGS,
-            options=self.OPTIONS
-            )
-        self.configuration.read(self.iniFile)
-        self.prefs = {}
-        self.prefs.update(self.configuration.settings)
-        self.prefs.update(self.configuration.options)
+        self.statisticsService = StatisticsService(model, view, controller)
 
         # Add an entry to the Help menu.
         self._ui.helpMenu.add_command(label=_('Project statistics Online help'), command=self.open_help_page)
@@ -94,41 +70,13 @@ class Plugin(PluginBase):
         self._ui.toolsMenu.entryconfig(self.FEATURE, state='disabled')
 
     def on_close(self):
-        """Close the window.
-        
-        Overrides the superclass method.
-        """
-        self.on_quit()
+        self.statisticsService.on_close()
 
     def on_quit(self):
-        """Write back the configuration file.
-        
-        Overrides the superclass method.
-        """
-        if self.statisticsView is not None:
-            if self.statisticsView.isOpen:
-                self.statisticsView.on_quit()
-
-        #--- Save configuration
-        for keyword in self.prefs:
-            if keyword in self.configuration.options:
-                self.configuration.options[keyword] = self.prefs[keyword]
-            elif keyword in self.configuration.settings:
-                self.configuration.settings[keyword] = self.prefs[keyword]
-        self.configuration.write(self.iniFile)
+        self.statisticsService.on_quit()
 
     def open_help_page(self, event=None):
         webbrowser.open(self.HELP_URL)
 
     def start_viewer(self):
-        if self.statisticsView is not None:
-            if self.statisticsView.isOpen:
-                if self.statisticsView.state() == 'iconic':
-                    self.statisticsView.state('normal')
-                self.statisticsView.lift()
-                self.statisticsView.focus()
-                return
-
-        self.statisticsView = StatisticsView(self._mdl, self._ui, self._ctrl, self.prefs)
-        self.statisticsView.title(f'{self._mdl.novel.title} - {self.FEATURE}')
-        set_icon(self.statisticsView, icon='sLogo32', default=False)
+        self.statisticsService.start_viewer(self.FEATURE)
