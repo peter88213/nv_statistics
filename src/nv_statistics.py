@@ -63,7 +63,7 @@ class Plugin(PluginBase):
         self.statisticsService = StatisticsService(model, view, controller)
 
         # Add an entry to the Help menu.
-        self._ui.helpMenu.add_command(label=_('Project statistics Online help'), command=self.open_help_page)
+        self._ui.helpMenu.add_command(label=_('Project statistics Online help'), command=self.open_help)
 
         # Create an entry in the Tools menu.
         self._ui.toolsMenu.add_command(label=self.FEATURE, command=self.start_viewer)
@@ -75,7 +75,7 @@ class Plugin(PluginBase):
     def on_quit(self):
         self.statisticsService.on_quit()
 
-    def open_help_page(self, event=None):
+    def open_help(self, event=None):
         webbrowser.open(self.HELP_URL)
 
     def start_viewer(self):
