@@ -1,7 +1,7 @@
-"""Provide a service class for the statistice viewer.
+"""Provide a service class for the statistics viewer.
 
 Copyright (c) 2024 Peter Triesberger
-For further information see https://github.com/peter88213/
+For further information see https://github.com/peter88213/nv_statistics
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from pathlib import Path
