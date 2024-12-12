@@ -4,7 +4,9 @@
 
 ## Changelog
 
-### Version 0.3.3
+### Version 0.4.0
+
+Rewritten using tk.canvas display.
 
 Library update:
 - Refactor the code for better maintainability.

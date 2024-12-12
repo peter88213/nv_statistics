@@ -27,33 +27,65 @@ class StatisticsView(tk.Toplevel, Observer, StatisticsViewCtrl):
         if PLATFORM != 'win':
             self.bind(KEYS.QUIT_PROGRAM[0], self.on_quit)
 
-        self._view = ttk.Notebook(self)
-        self._view.enable_traversal()
-        self._view.pack(fill='both', expand=True)
+        self.view = ttk.Notebook(self)
+        self.view.enable_traversal()
+        self.view.pack(fill='both', expand=True)
 
-        self._partFrame = ttk.Frame(self._view)
-        self._chapterFrame = ttk.Frame(self._view)
-        self._sectionFrame = ttk.Frame(self._view)
-        self._povFrame = ttk.Frame(self._view)
-        self._plotstructureFrame = ttk.Frame(self._view)
-        self._plotlineFrame = ttk.Frame(self._view)
+        self.partFrame = ttk.Frame(self.view)
+        self.chapterFrame = ttk.Frame(self.view)
+        self.sectionFrame = ttk.Frame(self.view)
+        self.povFrame = ttk.Frame(self.view)
+        self.plotstructureFrame = ttk.Frame(self.view)
+        self.plotlineFrame = ttk.Frame(self.view)
 
         VIEW_PADDING = 15
-        self._view.add(self._sectionFrame, text=_('Sections'), padding=VIEW_PADDING)
-        self._view.add(self._chapterFrame, text=_('Chapters'), padding=VIEW_PADDING)
-        self._view.add(self._partFrame, text=_('Parts'), padding=VIEW_PADDING)
-        self._view.add(self._povFrame, text=_('Viewpoints'), padding=VIEW_PADDING)
-        self._view.add(self._plotstructureFrame, text=_('Plot structure'), padding=VIEW_PADDING)
-        self._view.add(self._plotlineFrame, text=_('Plot lines'), padding=VIEW_PADDING)
+        self.view.add(self.sectionFrame, text=_('Sections'), padding=VIEW_PADDING)
+        self.view.add(self.chapterFrame, text=_('Chapters'), padding=VIEW_PADDING)
+        self.view.add(self.partFrame, text=_('Parts'), padding=VIEW_PADDING)
+        self.view.add(self.povFrame, text=_('Viewpoints'), padding=VIEW_PADDING)
+        self.view.add(self.plotstructureFrame, text=_('Plot structure'), padding=VIEW_PADDING)
+        self.view.add(self.plotlineFrame, text=_('Plot lines'), padding=VIEW_PADDING)
+
+        kw = dict(
+            borderwidth=0,
+            highlightthickness=0
+            )
+
+        self.partCanvas = tk.Canvas(self.partFrame, cnf={}, **kw)
+        self.partCanvas.pack(side='left', fill='both', expand=True)
+        self.partCanvas['background'] = self.prefs['color_background']
+
+        self.chapterCanvas = tk.Canvas(self.chapterFrame, cnf={}, **kw)
+        self.chapterCanvas.pack(side='left', fill='both', expand=True)
+        self.chapterCanvas['background'] = self.prefs['color_background']
+
+        self.sectionCanvas = tk.Canvas(self.sectionFrame, cnf={}, **kw)
+        self.sectionCanvas.pack(side='left', fill='both', expand=True)
+        self.sectionCanvas['background'] = self.prefs['color_background']
+
+        self.povCanvas = tk.Canvas(self.povFrame, cnf={}, **kw)
+        self.povCanvas.pack(side='left', fill='both', expand=True)
+        self.povCanvas['background'] = self.prefs['color_background']
+
+        self.plotstructureCanvas = tk.Canvas(self.plotstructureFrame, cnf={}, **kw)
+        self.plotstructureCanvas.pack(side='left', fill='both', expand=True)
+        self.plotstructureCanvas['background'] = self.prefs['color_background']
+
+        self.plotlineCanvas = tk.Canvas(self.plotlineFrame, cnf={}, **kw)
+        self.plotlineCanvas.pack(side='left', fill='both', expand=True)
+        self.plotlineCanvas['background'] = self.prefs['color_background']
 
         # "Close" button.
         ttk.Button(self, text=_('Close'), command=self.on_quit).pack(anchor='e', padx=5, pady=5)
+
+        # Respond to windows resizing.
+        self.bind('<Configure>', self.refresh)
 
         self.initialize_controller(model, view, controller)
         self._mdl.add_observer(self)
 
     def clear_frames(self):
-        for frame in self._view.winfo_children():
+        for frame in self.view.winfo_children():
             for child in frame.winfo_children():
                 child.destroy()
 
@@ -63,6 +95,6 @@ class StatisticsView(tk.Toplevel, Observer, StatisticsViewCtrl):
         self.destroy()
         self.isOpen = False
 
-    def refresh(self):
+    def refresh(self, event=None):
         self.calculate_statistics()
 

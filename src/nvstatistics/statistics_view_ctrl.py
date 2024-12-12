@@ -4,11 +4,11 @@ Copyright (c) 2024 Peter Triesberger
 For further information see https://github.com/peter88213/nv_statistics
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
+import textwrap
+
 from mvclib.controller.sub_controller import SubController
 from nvlib.novx_globals import CH_ROOT
-from nvstatistics.linked_percentage_bar import LinkedPercentageBar
 from nvstatistics.nvstatistics_locale import _
-import tkinter as tk
 
 
 class StatisticsViewCtrl(SubController):
@@ -16,10 +16,6 @@ class StatisticsViewCtrl(SubController):
     def initialize_controller(self, model, view, controller):
         super().initialize_controller(model, view, controller)
         self.isOpen = True
-
-        # Initialize the class (this hack makes the interface smaller):
-        LinkedPercentageBar.treeView = self._ui.tv
-
         self.calculate_statistics()
 
     def calculate_statistics(self):
@@ -71,108 +67,158 @@ class StatisticsViewCtrl(SubController):
                         stage2Id = scId
                         stage2Words[stage2Id] = 0
 
-        self.clear_frames()
-        LBL_WIDTH = 40
-        LBL_DIST = 1
+        LBL_WIDTH = 200
+        LBL_DIST = 20
+        LBL_HEIGHT = 20
+        BAR_HEIGHT = 10
+        TEXT_COLOR = self.prefs['color_text']
+        BG_COLOR = self.prefs['color_filler']
+        TEXT_MAX = 35
 
-        frame = self._partFrame
+        self.update()
+        openFrameIndex = self.view.index(self.view.select())
+        frames = [
+            self.sectionFrame,
+            self.chapterFrame,
+            self.partFrame,
+            self.povFrame,
+            self.plotstructureFrame,
+            self.plotlineFrame,
+            ]
+        xMax = frames[openFrameIndex].winfo_width()
+        xSpan = xMax - LBL_WIDTH - LBL_DIST - LBL_DIST
+        x3 = xMax - LBL_DIST
+
+        canvas = self.partCanvas
+        barColor = self.prefs['color_part']
+        y = LBL_HEIGHT
+        canvas.delete("all")
         for chId in partWords:
-            title = self._mdl.novel.chapters[chId].title
-            percentage = partWords[chId] / wordsTotal * 100
-            LinkedPercentageBar(
-                frame,
-                chId,
-                text=title,
-                value=percentage,
-                lblWidth=LBL_WIDTH,
-                lblDist=LBL_DIST,
-                ).pack(anchor='nw', expand=False)
+            title = textwrap.shorten(self._mdl.novel.chapters[chId].title, width=TEXT_MAX)
+            percentage = partWords[chId] / wordsTotal * xSpan
+            y += LBL_HEIGHT
+            x1 = LBL_WIDTH + LBL_DIST
+            y1 = y
+            x2 = x1 + int(percentage)
+            y2 = y1 + BAR_HEIGHT
+            canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
+            canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
+            titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=chId)
+            canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
 
-        frame = self._chapterFrame
+        canvas = self.chapterCanvas
+        barColor = self.prefs['color_chapter']
+        y = LBL_HEIGHT
+        canvas.delete("all")
         for chId in chapterWords:
-            title = self._mdl.novel.chapters[chId].title
-            percentage = chapterWords[chId] / wordsTotal * 100
-            LinkedPercentageBar(
-                frame,
-                chId,
-                text=title,
-                value=percentage,
-                lblWidth=LBL_WIDTH,
-                lblDist=LBL_DIST,
-                ).pack(anchor='nw', expand=False)
+            title = textwrap.shorten(self._mdl.novel.chapters[chId].title, width=TEXT_MAX)
+            percentage = chapterWords[chId] / wordsTotal * xSpan
+            y += LBL_HEIGHT
+            x1 = LBL_WIDTH + LBL_DIST
+            y1 = y
+            x2 = x1 + int(percentage)
+            y2 = y1 + BAR_HEIGHT
+            canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
+            canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
+            titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=chId)
+            canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
 
-        frame = self._sectionFrame
+        canvas = self.sectionCanvas
+        barColor = self.prefs['color_section']
+        y = LBL_HEIGHT
+        canvas.delete("all")
         for scId in sectionWords:
-            title = self._mdl.novel.sections[scId].title
-            percentage = sectionWords[scId] / wordsTotal * 100
-            LinkedPercentageBar(
-                frame,
-                scId,
-                text=title,
-                value=percentage,
-                lblWidth=LBL_WIDTH,
-                lblDist=LBL_DIST,
-                ).pack(anchor='nw', expand=False)
+            title = textwrap.shorten(self._mdl.novel.sections[scId].title, width=TEXT_MAX)
+            percentage = sectionWords[scId] / wordsTotal * xSpan
+            y += LBL_HEIGHT
+            x1 = LBL_WIDTH + LBL_DIST
+            y1 = y
+            x2 = x1 + int(percentage)
+            y2 = y1 + BAR_HEIGHT
+            canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
+            canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
+            titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=scId)
+            canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
 
-        frame = self._povFrame
+        canvas = self.povCanvas
+        barColor = self.prefs['color_viewpoint']
+        y = LBL_HEIGHT
+        canvas.delete("all")
         for crId in viewpointWords:
             if viewpointWords[crId] == 0:
                 continue
 
-            title = self._mdl.novel.characters[crId].title
-            percentage = viewpointWords[crId] / wordsTotal * 100
-            LinkedPercentageBar(
-                frame,
-                crId,
-                text=title,
-                value=percentage,
-                lblWidth=LBL_WIDTH,
-                lblDist=LBL_DIST,
-                ).pack(anchor='nw', expand=False)
+            title = textwrap.shorten(self._mdl.novel.characters[crId].title, width=TEXT_MAX)
+            percentage = viewpointWords[crId] / wordsTotal * xSpan
+            y += LBL_HEIGHT
+            x1 = LBL_WIDTH + LBL_DIST
+            y1 = y
+            x2 = x1 + int(percentage)
+            y2 = y1 + BAR_HEIGHT
+            canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
+            canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
+            titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=crId)
+            canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
 
-        frame = self._plotstructureFrame
+        canvas = self.plotstructureCanvas
+        barColor = self.prefs['color_stage1']
+        y = LBL_HEIGHT
 
-        heading1 = tk.Label(frame, text=_('Stages (first level)'), bg='white', pady=5, anchor='w')
-        font: dict[str, any] = tk.font.Font(font=heading1['font']).actual()
-        heading1.configure(font=(font['family'], font['size'], 'bold'))
-        heading1.pack(anchor='w', fill='x')
+        canvas.delete("all")
+        heading = _('Stages (first level)')
+        canvas.create_text(LBL_DIST, y, text=heading, fill=TEXT_COLOR, anchor='w')
         for scId in stage1Words:
-            title = self._mdl.novel.sections[scId].title
-            percentage = stage1Words[scId] / wordsTotal * 100
-            LinkedPercentageBar(
-                frame,
-                scId,
-                text=title,
-                value=percentage,
-                lblWidth=LBL_WIDTH,
-                lblDist=LBL_DIST,
-                ).pack(anchor='nw', expand=False)
+            title = textwrap.shorten(self._mdl.novel.sections[scId].title, width=TEXT_MAX)
+            percentage = stage1Words[scId] / wordsTotal * xSpan
+            y += LBL_HEIGHT
+            x1 = LBL_WIDTH + LBL_DIST
+            y1 = y
+            x2 = x1 + int(percentage)
+            y2 = y1 + BAR_HEIGHT
+            canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
+            canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
+            titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=scId)
+            canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
 
-        heading2 = tk.Label(frame, text=_('Stages (second level)'), bg='white', pady=5, anchor='w')
-        heading2.configure(font=(font['family'], font['size'], 'bold'))
-        heading2.pack(anchor='w', fill='x')
+        y += LBL_HEIGHT
+        heading = _('Stages (second level)')
+        canvas.create_text(LBL_DIST, y, text=heading, fill=TEXT_COLOR, anchor='w')
+        barColor = self.prefs['color_stage2']
         for scId in stage2Words:
-            title = self._mdl.novel.sections[scId].title
-            percentage = stage2Words[scId] / wordsTotal * 100
-            LinkedPercentageBar(
-                frame,
-                scId,
-                text=title,
-                value=percentage,
-                lblWidth=LBL_WIDTH,
-                lblDist=LBL_DIST,
-                ).pack(anchor='nw', expand=False)
+            title = textwrap.shorten(self._mdl.novel.sections[scId].title, width=TEXT_MAX)
+            percentage = stage2Words[scId] / wordsTotal * xSpan
+            y += LBL_HEIGHT
+            x1 = LBL_WIDTH + LBL_DIST
+            y1 = y
+            x2 = x1 + int(percentage)
+            y2 = y1 + BAR_HEIGHT
+            canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
+            canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
+            titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=scId)
+            canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
 
-        frame = self._plotlineFrame
+        canvas = self.plotlineCanvas
+        barColor = self.prefs['color_plotline']
+        y = LBL_HEIGHT
+        canvas.delete("all")
         for plId in plotlineWords:
-            title = self._mdl.novel.plotLines[plId].title
-            percentage = plotlineWords[plId] / wordsTotal * 100
-            LinkedPercentageBar(
-                frame,
-                plId,
-                text=title,
-                value=percentage,
-                lblWidth=LBL_WIDTH,
-                lblDist=LBL_DIST,
-                ).pack(anchor='nw', expand=False)
+            title = textwrap.shorten(self._mdl.novel.plotLines[plId].title, width=TEXT_MAX)
+            percentage = plotlineWords[plId] / wordsTotal * xSpan
+            y += LBL_HEIGHT
+            x1 = LBL_WIDTH + LBL_DIST
+            y1 = y
+            x2 = x1 + int(percentage)
+            y2 = y1 + BAR_HEIGHT
+            canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
+            canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
+            titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=plId)
+            canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
+
+    def _get_element_id(self, event):
+        return event.widget.itemcget('current', 'tag').split(' ')[0]
+
+    def _on_double_click(self, event):
+        """Select the double-clicked section in the project tree."""
+        elementId = self._get_element_id(event)
+        self._ui.tv.go_to_node(elementId)
 
