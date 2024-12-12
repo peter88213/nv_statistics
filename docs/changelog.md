@@ -4,9 +4,11 @@
 
 ## Changelog
 
-### Version 0.4.1
+### Version 1.0.0
 
-Rewritten using tk.canvas display.
+- Rewritten using tk.canvas display.
+- Added scrollbars.
+- Activated mouse scrolling.
 
 Library update:
 - Refactor the code for better maintainability.

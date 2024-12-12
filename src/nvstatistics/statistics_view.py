@@ -12,6 +12,7 @@ from nvstatistics.platform.platform_settings import KEYS
 from nvstatistics.platform.platform_settings import PLATFORM
 from nvstatistics.statistics_view_ctrl import StatisticsViewCtrl
 import tkinter as tk
+from nvstatistics.scroll_frame import ScrollFrame
 
 
 class StatisticsView(tk.Toplevel, Observer, StatisticsViewCtrl):
@@ -31,12 +32,12 @@ class StatisticsView(tk.Toplevel, Observer, StatisticsViewCtrl):
         self.view.enable_traversal()
         self.view.pack(fill='both', expand=True)
 
-        self.partFrame = ttk.Frame(self.view)
-        self.chapterFrame = ttk.Frame(self.view)
-        self.sectionFrame = ttk.Frame(self.view)
-        self.povFrame = ttk.Frame(self.view)
-        self.plotstructureFrame = ttk.Frame(self.view)
-        self.plotlineFrame = ttk.Frame(self.view)
+        self.partFrame = ScrollFrame(self.view)
+        self.chapterFrame = ScrollFrame(self.view)
+        self.sectionFrame = ScrollFrame(self.view)
+        self.povFrame = ScrollFrame(self.view)
+        self.plotstructureFrame = ScrollFrame(self.view)
+        self.plotlineFrame = ScrollFrame(self.view)
 
         self.view.add(self.sectionFrame, text=_('Sections'))
         self.view.add(self.chapterFrame, text=_('Chapters'))
@@ -45,33 +46,22 @@ class StatisticsView(tk.Toplevel, Observer, StatisticsViewCtrl):
         self.view.add(self.plotstructureFrame, text=_('Plot structure'))
         self.view.add(self.plotlineFrame, text=_('Plot lines'))
 
-        kw = dict(
-            borderwidth=0,
-            highlightthickness=0
-            )
-
-        self.partCanvas = tk.Canvas(self.partFrame, cnf={}, **kw)
-        self.partCanvas.pack(side='left', fill='both', expand=True)
+        self.partCanvas = self.partFrame.canvas
         self.partCanvas['background'] = self.prefs['color_background']
 
-        self.chapterCanvas = tk.Canvas(self.chapterFrame, cnf={}, **kw)
-        self.chapterCanvas.pack(side='left', fill='both', expand=True)
+        self.chapterCanvas = self.chapterFrame.canvas
         self.chapterCanvas['background'] = self.prefs['color_background']
 
-        self.sectionCanvas = tk.Canvas(self.sectionFrame, cnf={}, **kw)
-        self.sectionCanvas.pack(side='left', fill='both', expand=True)
+        self.sectionCanvas = self.sectionFrame.canvas
         self.sectionCanvas['background'] = self.prefs['color_background']
 
-        self.povCanvas = tk.Canvas(self.povFrame, cnf={}, **kw)
-        self.povCanvas.pack(side='left', fill='both', expand=True)
+        self.povCanvas = self.povFrame.canvas
         self.povCanvas['background'] = self.prefs['color_background']
 
-        self.plotstructureCanvas = tk.Canvas(self.plotstructureFrame, cnf={}, **kw)
-        self.plotstructureCanvas.pack(side='left', fill='both', expand=True)
+        self.plotstructureCanvas = self.plotstructureFrame.canvas
         self.plotstructureCanvas['background'] = self.prefs['color_background']
 
-        self.plotlineCanvas = tk.Canvas(self.plotlineFrame, cnf={}, **kw)
-        self.plotlineCanvas.pack(side='left', fill='both', expand=True)
+        self.plotlineCanvas = self.plotlineFrame.canvas
         self.plotlineCanvas['background'] = self.prefs['color_background']
 
         # "Close" button.

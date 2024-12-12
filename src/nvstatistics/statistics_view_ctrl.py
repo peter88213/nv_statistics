@@ -69,6 +69,7 @@ class StatisticsViewCtrl(SubController):
 
         LBL_WIDTH = 200
         LBL_DIST = 20
+        RIGHT_MARGIN = 40
         LBL_HEIGHT = 20
         BAR_HEIGHT = 10
         TEXT_COLOR = self.prefs['color_text']
@@ -77,8 +78,8 @@ class StatisticsViewCtrl(SubController):
 
         self.update()
         xMax = self.view.winfo_width()
-        xSpan = xMax - LBL_WIDTH - LBL_DIST - LBL_DIST
-        x3 = xMax - LBL_DIST
+        xSpan = xMax - LBL_WIDTH - RIGHT_MARGIN
+        x3 = xMax - RIGHT_MARGIN
 
         canvas = self.partCanvas
         barColor = self.prefs['color_part']
@@ -96,6 +97,9 @@ class StatisticsViewCtrl(SubController):
             canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
             titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=chId)
             canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
+        totalBounds = canvas.bbox('all')
+        if totalBounds is not None:
+            canvas.configure(scrollregion=(0, 0, 0, totalBounds[3]))
 
         canvas = self.chapterCanvas
         barColor = self.prefs['color_chapter']
@@ -113,6 +117,9 @@ class StatisticsViewCtrl(SubController):
             canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
             titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=chId)
             canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
+        totalBounds = canvas.bbox('all')
+        if totalBounds is not None:
+            canvas.configure(scrollregion=(0, 0, 0, totalBounds[3]))
 
         canvas = self.sectionCanvas
         barColor = self.prefs['color_section']
@@ -130,6 +137,9 @@ class StatisticsViewCtrl(SubController):
             canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
             titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=scId)
             canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
+        totalBounds = canvas.bbox('all')
+        if totalBounds is not None:
+            canvas.configure(scrollregion=(0, 0, 0, totalBounds[3]))
 
         canvas = self.povCanvas
         barColor = self.prefs['color_viewpoint']
@@ -150,6 +160,9 @@ class StatisticsViewCtrl(SubController):
             canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
             titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=crId)
             canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
+        totalBounds = canvas.bbox('all')
+        if totalBounds is not None:
+            canvas.configure(scrollregion=(0, 0, 0, totalBounds[3]))
 
         canvas = self.plotstructureCanvas
         barColor = self.prefs['color_stage1']
@@ -187,6 +200,9 @@ class StatisticsViewCtrl(SubController):
             canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
             titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=scId)
             canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
+        totalBounds = canvas.bbox('all')
+        if totalBounds is not None:
+            canvas.configure(scrollregion=(0, 0, 0, totalBounds[3]))
 
         canvas = self.plotlineCanvas
         barColor = self.prefs['color_plotline']
@@ -204,6 +220,9 @@ class StatisticsViewCtrl(SubController):
             canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
             titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=plId)
             canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
+        totalBounds = canvas.bbox('all')
+        if totalBounds is not None:
+            canvas.configure(scrollregion=(0, 0, 0, totalBounds[3]))
 
     def _get_element_id(self, event):
         return event.widget.itemcget('current', 'tag').split(' ')[0]
