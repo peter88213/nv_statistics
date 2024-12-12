@@ -38,12 +38,12 @@ class StatisticsViewCtrl(SubController):
         stage1Id = None
         stage2Id = None
         for chId in self._mdl.tree.get_children(CH_ROOT):
-            if self._mdl.novel.chapters[chId].chLevel == 1:
-                partId = chId
-                partWords[partId] = 0
-            else:
-                chapterWords[chId] = 0
             if self._mdl.novel.chapters[chId].chType == 0:
+                if self._mdl.novel.chapters[chId].chLevel == 1:
+                    partId = chId
+                    partWords[partId] = 0
+                else:
+                    chapterWords[chId] = 0
                 for scId in self._mdl.tree.get_children(chId):
                     if self._mdl.novel.sections[scId].scType == 0:
                         sectionWords[scId] = self._mdl.novel.sections[scId].wordCount
@@ -76,16 +76,7 @@ class StatisticsViewCtrl(SubController):
         TEXT_MAX = 35
 
         self.update()
-        openFrameIndex = self.view.index(self.view.select())
-        frames = [
-            self.sectionFrame,
-            self.chapterFrame,
-            self.partFrame,
-            self.povFrame,
-            self.plotstructureFrame,
-            self.plotlineFrame,
-            ]
-        xMax = frames[openFrameIndex].winfo_width()
+        xMax = self.view.winfo_width()
         xSpan = xMax - LBL_WIDTH - LBL_DIST - LBL_DIST
         x3 = xMax - LBL_DIST
 

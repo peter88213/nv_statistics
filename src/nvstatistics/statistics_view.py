@@ -38,13 +38,12 @@ class StatisticsView(tk.Toplevel, Observer, StatisticsViewCtrl):
         self.plotstructureFrame = ttk.Frame(self.view)
         self.plotlineFrame = ttk.Frame(self.view)
 
-        VIEW_PADDING = 15
-        self.view.add(self.sectionFrame, text=_('Sections'), padding=VIEW_PADDING)
-        self.view.add(self.chapterFrame, text=_('Chapters'), padding=VIEW_PADDING)
-        self.view.add(self.partFrame, text=_('Parts'), padding=VIEW_PADDING)
-        self.view.add(self.povFrame, text=_('Viewpoints'), padding=VIEW_PADDING)
-        self.view.add(self.plotstructureFrame, text=_('Plot structure'), padding=VIEW_PADDING)
-        self.view.add(self.plotlineFrame, text=_('Plot lines'), padding=VIEW_PADDING)
+        self.view.add(self.sectionFrame, text=_('Sections'))
+        self.view.add(self.chapterFrame, text=_('Chapters'))
+        self.view.add(self.partFrame, text=_('Parts'))
+        self.view.add(self.povFrame, text=_('Viewpoints'))
+        self.view.add(self.plotstructureFrame, text=_('Plot structure'))
+        self.view.add(self.plotlineFrame, text=_('Plot lines'))
 
         kw = dict(
             borderwidth=0,
