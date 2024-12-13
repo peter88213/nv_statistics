@@ -10,9 +10,9 @@ from mvclib.view.observer import Observer
 from nvstatistics.nvstatistics_locale import _
 from nvstatistics.platform.platform_settings import KEYS
 from nvstatistics.platform.platform_settings import PLATFORM
+from nvstatistics.scroll_frame import ScrollFrame
 from nvstatistics.statistics_view_ctrl import StatisticsViewCtrl
 import tkinter as tk
-from nvstatistics.scroll_frame import ScrollFrame
 
 
 class StatisticsView(tk.Toplevel, Observer, StatisticsViewCtrl):

@@ -68,79 +68,84 @@ class StatisticsViewCtrl(SubController):
                         stage2Words[stage2Id] = 0
 
         LBL_WIDTH = 200
-        LBL_DIST = 20
+        LBL_DIST = 10
         RIGHT_MARGIN = 40
         LBL_HEIGHT = 20
         BAR_HEIGHT = 10
+        HALF_BAR = BAR_HEIGHT / 2
         TEXT_COLOR = self.prefs['color_text']
         BG_COLOR = self.prefs['color_filler']
-        TEXT_MAX = 35
+        TEXT_MAX = LBL_WIDTH / 5
 
         self.update()
         xMax = self.view.winfo_width()
         xSpan = xMax - LBL_WIDTH - RIGHT_MARGIN
         x3 = xMax - RIGHT_MARGIN
 
+        #--- Parts.
         canvas = self.partCanvas
         barColor = self.prefs['color_part']
         y = LBL_HEIGHT
         canvas.delete("all")
+        x2 = LBL_WIDTH + LBL_DIST
         for chId in partWords:
-            title = textwrap.shorten(self._mdl.novel.chapters[chId].title, width=TEXT_MAX)
+            title = textwrap.shorten(self._mdl.novel.chapters[chId].title, width=x2 / 5)
             percentage = partWords[chId] / wordsTotal * xSpan
             y += LBL_HEIGHT
-            x1 = LBL_WIDTH + LBL_DIST
+            x1 = x2
             y1 = y
             x2 = x1 + int(percentage)
             y2 = y1 + BAR_HEIGHT
             canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
-            canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
-            titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=chId)
+            titleLabel = canvas.create_text((x1 - LBL_DIST, y + HALF_BAR), text=title, fill=TEXT_COLOR, anchor='e', tags=chId)
             canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
         totalBounds = canvas.bbox('all')
         if totalBounds is not None:
             canvas.configure(scrollregion=(0, 0, 0, totalBounds[3]))
 
+        #--- Chapters.
         canvas = self.chapterCanvas
         barColor = self.prefs['color_chapter']
         y = LBL_HEIGHT
         canvas.delete("all")
+        x2 = LBL_WIDTH + LBL_DIST
         for chId in chapterWords:
-            title = textwrap.shorten(self._mdl.novel.chapters[chId].title, width=TEXT_MAX)
+            title = textwrap.shorten(self._mdl.novel.chapters[chId].title, width=x2 / 5)
             percentage = chapterWords[chId] / wordsTotal * xSpan
             y += LBL_HEIGHT
-            x1 = LBL_WIDTH + LBL_DIST
+            x1 = x2
             y1 = y
             x2 = x1 + int(percentage)
             y2 = y1 + BAR_HEIGHT
             canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
-            canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
-            titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=chId)
+            titleLabel = canvas.create_text((x1 - LBL_DIST, y + HALF_BAR), text=title, fill=TEXT_COLOR, anchor='e', tags=chId)
             canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
         totalBounds = canvas.bbox('all')
         if totalBounds is not None:
             canvas.configure(scrollregion=(0, 0, 0, totalBounds[3]))
 
+        #--- Sections.
         canvas = self.sectionCanvas
         barColor = self.prefs['color_section']
         y = LBL_HEIGHT
         canvas.delete("all")
+        x2 = LBL_WIDTH + LBL_DIST
         for scId in sectionWords:
-            title = textwrap.shorten(self._mdl.novel.sections[scId].title, width=TEXT_MAX)
+            title = textwrap.shorten(self._mdl.novel.sections[scId].title, width=x2 / 5)
             percentage = sectionWords[scId] / wordsTotal * xSpan
             y += LBL_HEIGHT
-            x1 = LBL_WIDTH + LBL_DIST
+            x1 = x2
             y1 = y
             x2 = x1 + int(percentage)
             y2 = y1 + BAR_HEIGHT
             canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
-            canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
-            titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=scId)
+            titleLabel = canvas.create_text((x1 - LBL_DIST, y + HALF_BAR), text=title, fill=TEXT_COLOR, anchor='e', tags=scId)
             canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
         totalBounds = canvas.bbox('all')
         if totalBounds is not None:
             canvas.configure(scrollregion=(0, 0, 0, totalBounds[3]))
 
+        #--- Viewpoints.
         canvas = self.povCanvas
         barColor = self.prefs['color_viewpoint']
         y = LBL_HEIGHT
@@ -158,12 +163,13 @@ class StatisticsViewCtrl(SubController):
             y2 = y1 + BAR_HEIGHT
             canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
             canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
-            titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=crId)
+            titleLabel = canvas.create_text((LBL_WIDTH, y + HALF_BAR), text=title, fill=TEXT_COLOR, anchor='e', tags=crId)
             canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
         totalBounds = canvas.bbox('all')
         if totalBounds is not None:
             canvas.configure(scrollregion=(0, 0, 0, totalBounds[3]))
 
+        #--- Plot structure.
         canvas = self.plotstructureCanvas
         barColor = self.prefs['color_stage1']
         y = LBL_HEIGHT
@@ -171,45 +177,47 @@ class StatisticsViewCtrl(SubController):
         canvas.delete("all")
         heading = _('Stages (first level)')
         canvas.create_text(LBL_DIST, y, text=heading, fill=TEXT_COLOR, anchor='w')
+        x2 = LBL_WIDTH + LBL_DIST
         for scId in stage1Words:
-            title = textwrap.shorten(self._mdl.novel.sections[scId].title, width=TEXT_MAX)
+            title = textwrap.shorten(self._mdl.novel.sections[scId].title, width=x2 / 5)
             percentage = stage1Words[scId] / wordsTotal * xSpan
             y += LBL_HEIGHT
-            x1 = LBL_WIDTH + LBL_DIST
+            x1 = x2
             y1 = y
             x2 = x1 + int(percentage)
             y2 = y1 + BAR_HEIGHT
             canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
-            canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
-            titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=scId)
+            titleLabel = canvas.create_text((x1 - LBL_DIST, y + HALF_BAR), text=title, fill=TEXT_COLOR, anchor='e', tags=scId)
             canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
 
         y += LBL_HEIGHT
         heading = _('Stages (second level)')
         canvas.create_text(LBL_DIST, y, text=heading, fill=TEXT_COLOR, anchor='w')
         barColor = self.prefs['color_stage2']
+        x2 = LBL_WIDTH + LBL_DIST
         for scId in stage2Words:
-            title = textwrap.shorten(self._mdl.novel.sections[scId].title, width=TEXT_MAX)
+            title = textwrap.shorten(self._mdl.novel.sections[scId].title, width=x2 / 5)
             percentage = stage2Words[scId] / wordsTotal * xSpan
             y += LBL_HEIGHT
-            x1 = LBL_WIDTH + LBL_DIST
+            x1 = x2
             y1 = y
             x2 = x1 + int(percentage)
             y2 = y1 + BAR_HEIGHT
             canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
-            canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
-            titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=scId)
+            titleLabel = canvas.create_text((x1 - LBL_DIST, y + HALF_BAR), text=title, fill=TEXT_COLOR, anchor='e', tags=scId)
             canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
         totalBounds = canvas.bbox('all')
         if totalBounds is not None:
             canvas.configure(scrollregion=(0, 0, 0, totalBounds[3]))
 
+        #--- Plot lines.
         canvas = self.plotlineCanvas
         barColor = self.prefs['color_plotline']
         y = LBL_HEIGHT
         canvas.delete("all")
         for plId in plotlineWords:
-            title = textwrap.shorten(self._mdl.novel.plotLines[plId].title, width=TEXT_MAX)
+            title = f'{self._mdl.novel.plotLines[plId].shortName} - {self._mdl.novel.plotLines[plId].title}'
+            title = textwrap.shorten(title, width=TEXT_MAX)
             percentage = plotlineWords[plId] / wordsTotal * xSpan
             y += LBL_HEIGHT
             x1 = LBL_WIDTH + LBL_DIST
@@ -218,7 +226,7 @@ class StatisticsViewCtrl(SubController):
             y2 = y1 + BAR_HEIGHT
             canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
             canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
-            titleLabel = canvas.create_text((LBL_WIDTH, y), text=title, fill=TEXT_COLOR, anchor='e', tags=plId)
+            titleLabel = canvas.create_text((LBL_WIDTH, y + HALF_BAR), text=title, fill=TEXT_COLOR, anchor='e', tags=plId)
             canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
         totalBounds = canvas.bbox('all')
         if totalBounds is not None:

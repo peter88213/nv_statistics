@@ -4,17 +4,19 @@
 
 ## Changelog
 
-### Version 1.0.0
+
+### Version 1.1.0
 
 - Rewritten using tk.canvas display.
 - Added scrollbars.
 - Activated mouse scrolling.
+- Placing parts, chapters, sections, and stages sequentially. 
 
 Library update:
 - Refactor the code for better maintainability.
 
 API: 5.0
-Based on novelibre 5.0.26
+Based on novelibre 5.0.27
 
 ### Version 0.2.4
 
