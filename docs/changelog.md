@@ -5,7 +5,7 @@
 ## Changelog
 
 
-### Version 1.1.0
+### Version 1.1.1
 
 - Rewritten using tk.canvas display.
 - Added scrollbars.
@@ -16,7 +16,7 @@ Library update:
 - Refactor the code for better maintainability.
 
 API: 5.0
-Based on novelibre 5.0.27
+Based on novelibre 5.0.28
 
 ### Version 0.2.4
 

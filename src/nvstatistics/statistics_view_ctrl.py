@@ -78,7 +78,12 @@ class StatisticsViewCtrl(SubController):
         TEXT_MAX = LBL_WIDTH / 5
 
         self.update()
-        xMax = self.view.winfo_width()
+        try:
+            xMax = self.view.winfo_width()
+        except:
+            # handling delayed refresh while the view is already closed
+            return
+
         xSpan = xMax - LBL_WIDTH - RIGHT_MARGIN
         x3 = xMax - RIGHT_MARGIN
 

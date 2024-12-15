@@ -79,10 +79,10 @@ class StatisticsView(tk.Toplevel, Observer, StatisticsViewCtrl):
                 child.destroy()
 
     def on_quit(self, event=None):
+        self.isOpen = False
         self._mdl.delete_observer(self)
         self.prefs['window_geometry'] = self.winfo_geometry()
         self.destroy()
-        self.isOpen = False
 
     def refresh(self, event=None):
         self.calculate_statistics()
