@@ -5,7 +5,7 @@
 ## Changelog
 
 
-### Version 1.1.1
+### Version 5.0.0
 
 - Rewritten using tk.canvas display.
 - Added scrollbars.
