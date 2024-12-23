@@ -28,12 +28,12 @@ class StatisticsViewCtrl(SubController):
         sectionWords = {}
         stage1Words = {}
         stage2Words = {}
-        plotlineWords = {}
-        viewpointWords = {}
+        plotlineSections = {}
         for plId in self._mdl.novel.plotLines:
-            plotlineWords[plId] = 0
+            plotlineSections[plId] = []
+        viewpointSections = {}
         for crId in self._mdl.novel.characters:
-            viewpointWords[crId] = 0
+            viewpointSections[crId] = []
         partId = None
         stage1Id = None
         stage2Id = None
@@ -48,7 +48,6 @@ class StatisticsViewCtrl(SubController):
                     if self._mdl.novel.sections[scId].scType == 0:
                         sectionWords[scId] = self._mdl.novel.sections[scId].wordCount
                         chapterWords[chId] += self._mdl.novel.sections[scId].wordCount
-                        wordsTotal += self._mdl.novel.sections[scId].wordCount
                         if partId is not None:
                             partWords[partId] += self._mdl.novel.sections[scId].wordCount
                         if stage1Id is not None:
@@ -56,10 +55,11 @@ class StatisticsViewCtrl(SubController):
                         if stage2Id is not None:
                             stage2Words[stage2Id] += self._mdl.novel.sections[scId].wordCount
                         for plId in self._mdl.novel.sections[scId].scPlotLines:
-                            plotlineWords[plId] += self._mdl.novel.sections[scId].wordCount
+                            plotlineSections[plId].append((wordsTotal, self._mdl.novel.sections[scId].wordCount))
                         if self._mdl.novel.sections[scId].characters:
                             crId = self._mdl.novel.sections[scId].characters[0]
-                            viewpointWords[crId] += self._mdl.novel.sections[scId].wordCount
+                            viewpointSections[crId].append((wordsTotal, self._mdl.novel.sections[scId].wordCount))
+                        wordsTotal += self._mdl.novel.sections[scId].wordCount
                     elif self._mdl.novel.sections[scId].scType == 2:
                         stage1Id = scId
                         stage1Words[stage1Id] = 0
@@ -84,8 +84,10 @@ class StatisticsViewCtrl(SubController):
             # handling delayed refresh while the view is already closed
             return
 
-        xSpan = xMax - LBL_WIDTH - RIGHT_MARGIN
+        x0 = LBL_WIDTH + LBL_DIST
         x3 = xMax - RIGHT_MARGIN
+        xSpan = x3 - x0
+        wcNorm = xSpan / wordsTotal
 
         #--- Parts.
         canvas = self.partCanvas
@@ -95,11 +97,10 @@ class StatisticsViewCtrl(SubController):
         x2 = LBL_WIDTH + LBL_DIST
         for chId in partWords:
             title = textwrap.shorten(self._mdl.novel.chapters[chId].title, width=x2 / 5)
-            percentage = partWords[chId] / wordsTotal * xSpan
             y += LBL_HEIGHT
             x1 = x2
             y1 = y
-            x2 = x1 + int(percentage)
+            x2 = x1 + partWords[chId] * wcNorm
             y2 = y1 + BAR_HEIGHT
             canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
             titleLabel = canvas.create_text((x1 - LBL_DIST, y + HALF_BAR), text=title, fill=TEXT_COLOR, anchor='e', tags=chId)
@@ -116,11 +117,10 @@ class StatisticsViewCtrl(SubController):
         x2 = LBL_WIDTH + LBL_DIST
         for chId in chapterWords:
             title = textwrap.shorten(self._mdl.novel.chapters[chId].title, width=x2 / 5)
-            percentage = chapterWords[chId] / wordsTotal * xSpan
             y += LBL_HEIGHT
             x1 = x2
             y1 = y
-            x2 = x1 + int(percentage)
+            x2 = x1 + chapterWords[chId] * wcNorm
             y2 = y1 + BAR_HEIGHT
             canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
             titleLabel = canvas.create_text((x1 - LBL_DIST, y + HALF_BAR), text=title, fill=TEXT_COLOR, anchor='e', tags=chId)
@@ -137,11 +137,10 @@ class StatisticsViewCtrl(SubController):
         x2 = LBL_WIDTH + LBL_DIST
         for scId in sectionWords:
             title = textwrap.shorten(self._mdl.novel.sections[scId].title, width=x2 / 5)
-            percentage = sectionWords[scId] / wordsTotal * xSpan
             y += LBL_HEIGHT
             x1 = x2
             y1 = y
-            x2 = x1 + int(percentage)
+            x2 = x1 + sectionWords[scId] * wcNorm
             y2 = y1 + BAR_HEIGHT
             canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
             titleLabel = canvas.create_text((x1 - LBL_DIST, y + HALF_BAR), text=title, fill=TEXT_COLOR, anchor='e', tags=scId)
@@ -155,19 +154,20 @@ class StatisticsViewCtrl(SubController):
         barColor = self.prefs['color_viewpoint']
         y = LBL_HEIGHT
         canvas.delete("all")
-        for crId in viewpointWords:
-            if viewpointWords[crId] == 0:
+        for crId in viewpointSections:
+            if not viewpointSections[crId]:
                 continue
 
-            title = textwrap.shorten(self._mdl.novel.characters[crId].title, width=TEXT_MAX)
-            percentage = viewpointWords[crId] / wordsTotal * xSpan
             y += LBL_HEIGHT
-            x1 = LBL_WIDTH + LBL_DIST
             y1 = y
-            x2 = x1 + int(percentage)
             y2 = y1 + BAR_HEIGHT
-            canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
-            canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
+            canvas.create_rectangle(x0, y1, x3, y2, fill=BG_COLOR)
+            for position, wordCount in viewpointSections[crId]:
+                if wordCount > 0:
+                    x1 = x0 + position * wcNorm
+                    x2 = x1 + wordCount * wcNorm
+                    canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
+            title = textwrap.shorten(self._mdl.novel.characters[crId].title, width=TEXT_MAX)
             titleLabel = canvas.create_text((LBL_WIDTH, y + HALF_BAR), text=title, fill=TEXT_COLOR, anchor='e', tags=crId)
             canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
         totalBounds = canvas.bbox('all')
@@ -185,11 +185,10 @@ class StatisticsViewCtrl(SubController):
         x2 = LBL_WIDTH + LBL_DIST
         for scId in stage1Words:
             title = textwrap.shorten(self._mdl.novel.sections[scId].title, width=x2 / 5)
-            percentage = stage1Words[scId] / wordsTotal * xSpan
             y += LBL_HEIGHT
             x1 = x2
             y1 = y
-            x2 = x1 + int(percentage)
+            x2 = x1 + stage1Words[scId] * wcNorm
             y2 = y1 + BAR_HEIGHT
             canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
             titleLabel = canvas.create_text((x1 - LBL_DIST, y + HALF_BAR), text=title, fill=TEXT_COLOR, anchor='e', tags=scId)
@@ -202,11 +201,10 @@ class StatisticsViewCtrl(SubController):
         x2 = LBL_WIDTH + LBL_DIST
         for scId in stage2Words:
             title = textwrap.shorten(self._mdl.novel.sections[scId].title, width=x2 / 5)
-            percentage = stage2Words[scId] / wordsTotal * xSpan
             y += LBL_HEIGHT
             x1 = x2
             y1 = y
-            x2 = x1 + int(percentage)
+            x2 = x1 + stage2Words[scId] * wcNorm
             y2 = y1 + BAR_HEIGHT
             canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
             titleLabel = canvas.create_text((x1 - LBL_DIST, y + HALF_BAR), text=title, fill=TEXT_COLOR, anchor='e', tags=scId)
@@ -220,17 +218,18 @@ class StatisticsViewCtrl(SubController):
         barColor = self.prefs['color_plotline']
         y = LBL_HEIGHT
         canvas.delete("all")
-        for plId in plotlineWords:
+        for plId in plotlineSections:
+            y += LBL_HEIGHT
+            y1 = y
+            y2 = y1 + BAR_HEIGHT
+            canvas.create_rectangle(x0, y1, x3, y2, fill=BG_COLOR)
+            for position, wordCount in plotlineSections[plId]:
+                if wordCount > 0:
+                    x1 = x0 + position * wcNorm
+                    x2 = x1 + wordCount * wcNorm
+                    canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
             title = f'{self._mdl.novel.plotLines[plId].shortName} - {self._mdl.novel.plotLines[plId].title}'
             title = textwrap.shorten(title, width=TEXT_MAX)
-            percentage = plotlineWords[plId] / wordsTotal * xSpan
-            y += LBL_HEIGHT
-            x1 = LBL_WIDTH + LBL_DIST
-            y1 = y
-            x2 = x1 + int(percentage)
-            y2 = y1 + BAR_HEIGHT
-            canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
-            canvas.create_rectangle(x2, y1, x3, y2, fill=BG_COLOR)
             titleLabel = canvas.create_text((LBL_WIDTH, y + HALF_BAR), text=title, fill=TEXT_COLOR, anchor='e', tags=plId)
             canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
         totalBounds = canvas.bbox('all')

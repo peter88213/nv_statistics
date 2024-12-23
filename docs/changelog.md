@@ -4,6 +4,11 @@
 
 ## Changelog
 
+### Version 5.1.0
+
+- Show the section positions in the viewpoint tab.
+- Show the section positions in the plot lines tab.
+
 
 ### Version 5.0.0
 
