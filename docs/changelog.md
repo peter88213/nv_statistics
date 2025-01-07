@@ -4,6 +4,15 @@
 
 ## Changelog
 
+
+### Version 5.1.1
+
+- Secured the calculation against overflow. 
+
+API: 5.0
+Based on novelibre 5.6.0
+
+
 ### Version 5.1.0
 
 - Show the section positions in the viewpoint tab.

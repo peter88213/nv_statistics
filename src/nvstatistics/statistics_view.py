@@ -68,6 +68,8 @@ class StatisticsView(tk.Toplevel, Observer, StatisticsViewCtrl):
         ttk.Button(self, text=_('Close'), command=self.on_quit).pack(anchor='e', padx=5, pady=5)
 
         # Respond to windows resizing.
+        self._calculating = False
+        # semaphore to prevent overflow
         self.bind('<Configure>', self.refresh)
 
         self.initialize_controller(model, view, controller)
@@ -85,5 +87,10 @@ class StatisticsView(tk.Toplevel, Observer, StatisticsViewCtrl):
         self.destroy()
 
     def refresh(self, event=None):
+        if self._calculating:
+            return
+
+        self._calculating = True
         self.calculate_statistics()
+        self._calculating = False
 
