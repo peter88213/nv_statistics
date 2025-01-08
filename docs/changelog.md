@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 5.2.1
+
+- Handling zero division error in case thee are no words. 
+
+API: 5.0
+Based on novelibre 5.6.0
+
+
 ### Version 5.2.0
 
 - Added a toolbar button.

@@ -44,7 +44,10 @@ class PlotstructFrame(StatisticsFrame):
         x0 = self._LBL_WIDTH + self._LBL_DIST
         x3 = xMax - self._RIGHT_MARGIN
         xSpan = x3 - x0
-        wcNorm = xSpan / wordsTotal
+        try:
+            wcNorm = xSpan / wordsTotal
+        except ZeroDivisionError:
+            wcNorm = 0
 
         barColor = self.prefs['color_stage1']
         y = self._LBL_HEIGHT
