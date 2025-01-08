@@ -5,6 +5,15 @@
 ## Changelog
 
 
+### Version 5.2.0
+
+- Added a toolbar button.
+- Refactored for more efficiency. 
+
+API: 5.0
+Based on novelibre 5.6.0
+
+
 ### Version 5.1.1
 
 - Secured the calculation against overflow. 

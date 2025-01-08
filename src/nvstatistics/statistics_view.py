@@ -1,4 +1,4 @@
-"""Provide a tkinter widget for project statistics display.
+"""Provide a popup window for project statistics display.
 
 Copyright (c) 2025 Peter Triesberger
 For further information see https://github.com/peter88213/nv_statistics
@@ -10,8 +10,13 @@ from mvclib.view.observer import Observer
 from nvstatistics.nvstatistics_locale import _
 from nvstatistics.platform.platform_settings import KEYS
 from nvstatistics.platform.platform_settings import PLATFORM
-from nvstatistics.scroll_frame import ScrollFrame
 from nvstatistics.statistics_view_ctrl import StatisticsViewCtrl
+from nvstatistics.part_frame import PartFrame
+from nvstatistics.chapter_frame import ChapterFrame
+from nvstatistics.section_frame import SectionFrame
+from nvstatistics.pov_frame import PovFrame
+from nvstatistics.plotstruct_frame import PlotstructFrame
+from nvstatistics.plotline_frame import PlotlineFrame
 import tkinter as tk
 
 
@@ -32,45 +37,33 @@ class StatisticsView(tk.Toplevel, Observer, StatisticsViewCtrl):
         self.view.enable_traversal()
         self.view.pack(fill='both', expand=True)
 
-        self.partFrame = ScrollFrame(self.view)
-        self.chapterFrame = ScrollFrame(self.view)
-        self.sectionFrame = ScrollFrame(self.view)
-        self.povFrame = ScrollFrame(self.view)
-        self.plotstructureFrame = ScrollFrame(self.view)
-        self.plotlineFrame = ScrollFrame(self.view)
+        self.partFrame = PartFrame(model, view, controller, prefs, self.view)
+        self.chapterFrame = ChapterFrame(model, view, controller, prefs, self.view)
+        self.sectionFrame = SectionFrame(model, view, controller, prefs, self.view)
+        self.povFrame = PovFrame(model, view, controller, prefs, self.view)
+        self.plotstructureFrame = PlotstructFrame(model, view, controller, prefs, self.view)
+        self.plotlineFrame = PlotlineFrame(model, view, controller, prefs, self.view)
 
-        self.view.add(self.sectionFrame, text=_('Sections'))
-        self.view.add(self.chapterFrame, text=_('Chapters'))
-        self.view.add(self.partFrame, text=_('Parts'))
-        self.view.add(self.povFrame, text=_('Viewpoints'))
-        self.view.add(self.plotstructureFrame, text=_('Plot structure'))
-        self.view.add(self.plotlineFrame, text=_('Plot lines'))
-
-        self.partCanvas = self.partFrame.canvas
-        self.partCanvas['background'] = self.prefs['color_background']
-
-        self.chapterCanvas = self.chapterFrame.canvas
-        self.chapterCanvas['background'] = self.prefs['color_background']
-
-        self.sectionCanvas = self.sectionFrame.canvas
-        self.sectionCanvas['background'] = self.prefs['color_background']
-
-        self.povCanvas = self.povFrame.canvas
-        self.povCanvas['background'] = self.prefs['color_background']
-
-        self.plotstructureCanvas = self.plotstructureFrame.canvas
-        self.plotstructureCanvas['background'] = self.prefs['color_background']
-
-        self.plotlineCanvas = self.plotlineFrame.canvas
-        self.plotlineCanvas['background'] = self.prefs['color_background']
+        self._frames = [
+            (self.sectionFrame, _('Sections')),
+            (self.chapterFrame, _('Chapters')),
+            (self.partFrame, _('Parts')),
+            (self.povFrame, _('Viewpoints')),
+            (self.plotstructureFrame, _('Plot structure')),
+            (self.plotlineFrame, _('Plot lines')),
+        ]
+        for frame, text in self._frames:
+            self.view.add(frame, text=text)
+        self.view.bind('<<NotebookTabChanged>>', self._onTabChange)
+        self.activeFrame = self._frames[0][0]
 
         # "Close" button.
         ttk.Button(self, text=_('Close'), command=self.on_quit).pack(anchor='e', padx=5, pady=5)
 
         # Respond to windows resizing.
-        self._calculating = False
+        self.calculating = False
         # semaphore to prevent overflow
-        self.bind('<Configure>', self.refresh)
+        self.bind('<Configure>', self.draw)
 
         self.initialize_controller(model, view, controller)
         self._mdl.add_observer(self)
@@ -87,10 +80,8 @@ class StatisticsView(tk.Toplevel, Observer, StatisticsViewCtrl):
         self.destroy()
 
     def refresh(self, event=None):
-        if self._calculating:
-            return
+        self.draw()
 
-        self._calculating = True
-        self.calculate_statistics()
-        self._calculating = False
-
+    def _onTabChange(self, event=None):
+        self.activeFrame = self._frames[self.view.index('current')][0]
+        self.activeFrame.draw()
