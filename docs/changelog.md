@@ -7,7 +7,7 @@
 
 ### Version 5.2.1
 
-- Handling zero division error in case thee are no words. 
+- Handling zero division error in case there are no words. 
 
 API: 5.0
 Based on novelibre 5.6.0
