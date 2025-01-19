@@ -12,46 +12,42 @@ from nvstatistics.statistics_frame import StatisticsFrame
 
 class PovFrame(StatisticsFrame):
 
-    def draw(self):
-        wordsTotal = 0
-        viewpointSections = {}
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.viewpointSections = {}
+
+    def calculate(self):
+        self.wordsTotal = 0
         for crId in self._mdl.novel.characters:
-            viewpointSections[crId] = []
+            self.viewpointSections[crId] = []
         for chId in self._mdl.tree.get_children(CH_ROOT):
             if self._mdl.novel.chapters[chId].chType == 0:
                 for scId in self._mdl.tree.get_children(chId):
                     if self._mdl.novel.sections[scId].scType == 0:
                         if self._mdl.novel.sections[scId].characters:
                             crId = self._mdl.novel.sections[scId].characters[0]
-                            viewpointSections[crId].append((wordsTotal, self._mdl.novel.sections[scId].wordCount))
-                        wordsTotal += self._mdl.novel.sections[scId].wordCount
-        self.update()
+                            self.viewpointSections[crId].append((self.wordsTotal, self._mdl.novel.sections[scId].wordCount))
+                        self.wordsTotal += self._mdl.novel.sections[scId].wordCount
+
+    def draw(self):
         try:
-            xMax = self.winfo_width()
+            wcNorm, x0, x3 = self._get_win_scaling()
         except:
             # handling delayed refresh while the view is already closed
             return
 
-        x0 = self._LBL_WIDTH + self._LBL_DIST
-        x3 = xMax - self._RIGHT_MARGIN
-        xSpan = x3 - x0
-        try:
-            wcNorm = xSpan / wordsTotal
-        except ZeroDivisionError:
-            wcNorm = 0
-
         barColor = self.prefs['color_viewpoint']
         y = self._LBL_HEIGHT
         self.canvas.delete("all")
-        for crId in viewpointSections:
-            if not viewpointSections[crId]:
+        for crId in self.viewpointSections:
+            if not self.viewpointSections[crId]:
                 continue
 
             y += self._LBL_HEIGHT
             y1 = y
             y2 = y1 + self._BAR_HEIGHT
             self.canvas.create_rectangle(x0, y1, x3, y2, fill=self._BG_COLOR)
-            for position, wordCount in viewpointSections[crId]:
+            for position, wordCount in self.viewpointSections[crId]:
                 if wordCount > 0:
                     x1 = x0 + position * wcNorm
                     x2 = x1 + wordCount * wcNorm

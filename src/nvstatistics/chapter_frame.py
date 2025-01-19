@@ -12,42 +12,38 @@ from nvstatistics.statistics_frame import StatisticsFrame
 
 class ChapterFrame(StatisticsFrame):
 
-    def draw(self):
-        wordsTotal = 0
-        chapterWords = {}
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.chapterWords = {}
+
+    def calculate(self):
+        self.wordsTotal = 0
         for chId in self._mdl.tree.get_children(CH_ROOT):
             if self._mdl.novel.chapters[chId].chType == 0:
                 if self._mdl.novel.chapters[chId].chLevel == 2:
-                    chapterWords[chId] = 0
+                    self.chapterWords[chId] = 0
                 for scId in self._mdl.tree.get_children(chId):
                     if self._mdl.novel.sections[scId].scType == 0:
-                        chapterWords[chId] += self._mdl.novel.sections[scId].wordCount
-                        wordsTotal += self._mdl.novel.sections[scId].wordCount
-        self.update()
+                        self.chapterWords[chId] += self._mdl.novel.sections[scId].wordCount
+                        self.wordsTotal += self._mdl.novel.sections[scId].wordCount
+
+    def draw(self):
         try:
-            xMax = self.winfo_width()
+            wcNorm, x0, x3 = self._get_win_scaling()
         except:
             # handling delayed refresh while the view is already closed
             return
-
-        x0 = self._LBL_WIDTH + self._LBL_DIST
-        x3 = xMax - self._RIGHT_MARGIN
-        xSpan = x3 - x0
-        try:
-            wcNorm = xSpan / wordsTotal
-        except ZeroDivisionError:
-            wcNorm = 0
 
         barColor = self.prefs['color_chapter']
         y = self._LBL_HEIGHT
         self.canvas.delete("all")
         x2 = self._LBL_WIDTH + self._LBL_DIST
-        for chId in chapterWords:
+        for chId in self.chapterWords:
             title = textwrap.shorten(self._mdl.novel.chapters[chId].title, width=x2 / 5)
             y += self._LBL_HEIGHT
             x1 = x2
             y1 = y
-            x2 = x1 + chapterWords[chId] * wcNorm
+            x2 = x1 + self.chapterWords[chId] * wcNorm
             y2 = y1 + self._BAR_HEIGHT
             self.canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
             titleLabel = self.canvas.create_text((x1 - self._LBL_DIST, y + self._HALF_BAR), text=title, fill=self._TEXT_COLOR, anchor='e', tags=chId)

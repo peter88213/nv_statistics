@@ -13,10 +13,13 @@ from nvstatistics.statistics_frame import StatisticsFrame
 
 class PlotstructFrame(StatisticsFrame):
 
-    def draw(self):
-        wordsTotal = 0
-        stage1Words = {}
-        stage2Words = {}
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.stage1Words = {}
+        self.stage2Words = {}
+
+    def calculate(self):
+        self.wordsTotal = 0
         stage1Id = None
         stage2Id = None
         for chId in self._mdl.tree.get_children(CH_ROOT):
@@ -24,30 +27,23 @@ class PlotstructFrame(StatisticsFrame):
                 for scId in self._mdl.tree.get_children(chId):
                     if self._mdl.novel.sections[scId].scType == 0:
                         if stage1Id is not None:
-                            stage1Words[stage1Id] += self._mdl.novel.sections[scId].wordCount
+                            self.stage1Words[stage1Id] += self._mdl.novel.sections[scId].wordCount
                         if stage2Id is not None:
-                            stage2Words[stage2Id] += self._mdl.novel.sections[scId].wordCount
-                        wordsTotal += self._mdl.novel.sections[scId].wordCount
+                            self.stage2Words[stage2Id] += self._mdl.novel.sections[scId].wordCount
+                        self.wordsTotal += self._mdl.novel.sections[scId].wordCount
                     elif self._mdl.novel.sections[scId].scType == 2:
                         stage1Id = scId
-                        stage1Words[stage1Id] = 0
+                        self.stage1Words[stage1Id] = 0
                     elif self._mdl.novel.sections[scId].scType == 3:
                         stage2Id = scId
-                        stage2Words[stage2Id] = 0
-        self.update()
+                        self.stage2Words[stage2Id] = 0
+
+    def draw(self):
         try:
-            xMax = self.winfo_width()
+            wcNorm, x0, x3 = self._get_win_scaling()
         except:
             # handling delayed refresh while the view is already closed
             return
-
-        x0 = self._LBL_WIDTH + self._LBL_DIST
-        x3 = xMax - self._RIGHT_MARGIN
-        xSpan = x3 - x0
-        try:
-            wcNorm = xSpan / wordsTotal
-        except ZeroDivisionError:
-            wcNorm = 0
 
         barColor = self.prefs['color_stage1']
         y = self._LBL_HEIGHT
@@ -56,12 +52,12 @@ class PlotstructFrame(StatisticsFrame):
         heading = _('Stages (first level)')
         self.canvas.create_text(self._LBL_DIST, y, text=heading, fill=self._TEXT_COLOR, anchor='w')
         x2 = self._LBL_WIDTH + self._LBL_DIST
-        for scId in stage1Words:
+        for scId in self.stage1Words:
             title = textwrap.shorten(self._mdl.novel.sections[scId].title, width=x2 / 5)
             y += self._LBL_HEIGHT
             x1 = x2
             y1 = y
-            x2 = x1 + stage1Words[scId] * wcNorm
+            x2 = x1 + self.stage1Words[scId] * wcNorm
             y2 = y1 + self._BAR_HEIGHT
             self.canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
             titleLabel = self.canvas.create_text((x1 - self._LBL_DIST, y + self._HALF_BAR), text=title, fill=self._TEXT_COLOR, anchor='e', tags=scId)
@@ -72,12 +68,12 @@ class PlotstructFrame(StatisticsFrame):
         self.canvas.create_text(self._LBL_DIST, y, text=heading, fill=self._TEXT_COLOR, anchor='w')
         barColor = self.prefs['color_stage2']
         x2 = self._LBL_WIDTH + self._LBL_DIST
-        for scId in stage2Words:
+        for scId in self.stage2Words:
             title = textwrap.shorten(self._mdl.novel.sections[scId].title, width=x2 / 5)
             y += self._LBL_HEIGHT
             x1 = x2
             y1 = y
-            x2 = x1 + stage2Words[scId] * wcNorm
+            x2 = x1 + self.stage2Words[scId] * wcNorm
             y2 = y1 + self._BAR_HEIGHT
             self.canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
             titleLabel = self.canvas.create_text((x1 - self._LBL_DIST, y + self._HALF_BAR), text=title, fill=self._TEXT_COLOR, anchor='e', tags=scId)

@@ -26,6 +26,7 @@ class StatisticsFrame(ABC, ScrollFrame, SubController):
         self._BG_COLOR = self.prefs['color_filler']
         self._TEXT_MAX = self._LBL_WIDTH / 5
         self.canvas['background'] = self.prefs['color_background']
+        self.wordsTotal = 0
 
     @abstractmethod
     def draw(self):
@@ -38,6 +39,16 @@ class StatisticsFrame(ABC, ScrollFrame, SubController):
 
     def _get_element_id(self, event):
         return event.widget.itemcget('current', 'tag').split(' ')[0]
+
+    def _get_win_scaling(self):
+        self.update_idletasks()
+        x0 = self._LBL_WIDTH + self._LBL_DIST
+        x3 = self.winfo_width() - self._RIGHT_MARGIN
+        try:
+            wcNorm = (x3 - x0) / self.wordsTotal
+        except ZeroDivisionError:
+            wcNorm = 0
+        return wcNorm, x0, x3
 
     def _on_double_click(self, event):
         """Select the double-clicked section in the project tree."""

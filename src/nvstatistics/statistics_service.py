@@ -18,7 +18,7 @@ class StatisticsService(SubController):
         window_geometry='510x440',
         color_plotline='deepSkyBlue',
         color_viewpoint='goldenrod1',
-        color_section='coral1',
+        color_section='greenyellow',
         color_part='aquamarine1',
         color_chapter='green',
         color_stage1='red',

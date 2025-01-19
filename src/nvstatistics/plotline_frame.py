@@ -12,42 +12,38 @@ from nvstatistics.statistics_frame import StatisticsFrame
 
 class PlotlineFrame(StatisticsFrame):
 
-    def draw(self):
-        wordsTotal = 0
-        plotlineSections = {}
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.plotlineSections = {}
+
+    def calculate(self):
+        self.wordsTotal = 0
         for plId in self._mdl.novel.plotLines:
-            plotlineSections[plId] = []
+            self.plotlineSections[plId] = []
         for chId in self._mdl.tree.get_children(CH_ROOT):
             if self._mdl.novel.chapters[chId].chType == 0:
                 for scId in self._mdl.tree.get_children(chId):
                     if self._mdl.novel.sections[scId].scType == 0:
                         for plId in self._mdl.novel.sections[scId].scPlotLines:
-                            plotlineSections[plId].append((wordsTotal, self._mdl.novel.sections[scId].wordCount))
-                        wordsTotal += self._mdl.novel.sections[scId].wordCount
-        self.update()
+                            self.plotlineSections[plId].append((self.wordsTotal, self._mdl.novel.sections[scId].wordCount))
+                        self.wordsTotal += self._mdl.novel.sections[scId].wordCount
+
+    def draw(self):
         try:
-            xMax = self.winfo_width()
+            wcNorm, x0, x3 = self._get_win_scaling()
         except:
             # handling delayed refresh while the view is already closed
             return
 
-        x0 = self._LBL_WIDTH + self._LBL_DIST
-        x3 = xMax - self._RIGHT_MARGIN
-        xSpan = x3 - x0
-        try:
-            wcNorm = xSpan / wordsTotal
-        except ZeroDivisionError:
-            wcNorm = 0
-
         barColor = self.prefs['color_plotline']
         y = self._LBL_HEIGHT
         self.canvas.delete("all")
-        for plId in plotlineSections:
+        for plId in self.plotlineSections:
             y += self._LBL_HEIGHT
             y1 = y
             y2 = y1 + self._BAR_HEIGHT
             self.canvas.create_rectangle(x0, y1, x3, y2, fill=self._BG_COLOR)
-            for position, wordCount in plotlineSections[plId]:
+            for position, wordCount in self.plotlineSections[plId]:
                 if wordCount > 0:
                     x1 = x0 + position * wcNorm
                     x2 = x1 + wordCount * wcNorm

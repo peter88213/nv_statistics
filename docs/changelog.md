@@ -5,6 +5,17 @@
 ## Changelog
 
 
+### Version 5.2.2
+
+- Set the minimum window size to 400x400 (#1). This fixes a bug where an exception is raised when the window is made too narrow.
+- Refactored the code for better performance.
+- Changed the section default color from "coral1" to "greenyellow". 
+  To make this take effect, you may want to delete `statistics.ini` in the `.novx/config` directory. 
+
+API: 5.0
+Based on novelibre 5.11.0
+
+
 ### Version 5.2.1
 
 - Handling zero division error in case there are no words. 

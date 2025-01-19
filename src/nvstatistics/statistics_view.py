@@ -24,6 +24,7 @@ class StatisticsView(tk.Toplevel, Observer, StatisticsViewCtrl):
 
     def __init__(self, model, view, controller, prefs):
         tk.Toplevel.__init__(self)
+        self.minsize(400, 400)
         self.prefs = prefs
 
         self.geometry(self.prefs['window_geometry'])
@@ -61,9 +62,9 @@ class StatisticsView(tk.Toplevel, Observer, StatisticsViewCtrl):
         ttk.Button(self, text=_('Close'), command=self.on_quit).pack(anchor='e', padx=5, pady=5)
 
         # Respond to windows resizing.
-        self.calculating = False
+        self.redrawing = False
         # semaphore to prevent overflow
-        self.bind('<Configure>', self.draw)
+        self.bind('<Configure>', self.redraw)
 
         self.initialize_controller(model, view, controller)
         self._mdl.add_observer(self)
@@ -79,9 +80,19 @@ class StatisticsView(tk.Toplevel, Observer, StatisticsViewCtrl):
         self.prefs['window_geometry'] = self.winfo_geometry()
         self.destroy()
 
+    def redraw(self, event=None):
+        if self.redrawing:
+            return
+
+        self.redrawing = True
+        self.activeFrame.draw()
+        self.redrawing = False
+
     def refresh(self, event=None):
-        self.draw()
+        self.activeFrame.calculate()
+        self.activeFrame.draw()
 
     def _onTabChange(self, event=None):
         self.activeFrame = self._frames[self.view.index('current')][0]
+        self.activeFrame.calculate()
         self.activeFrame.draw()
