@@ -41,7 +41,10 @@ class StatisticsFrame(ABC, ScrollFrame, SubController):
         return event.widget.itemcget('current', 'tag').split(' ')[0]
 
     def _get_win_scaling(self):
-        self.update_idletasks()
+        self.update()
+        # update() makes resizing the window smoother than update_idletasks().
+        # However, this requires the semaphore used with the StatisticsView.redraw() method.
+
         x0 = self._LBL_WIDTH + self._LBL_DIST
         x3 = self.winfo_width() - self._RIGHT_MARGIN
         try:

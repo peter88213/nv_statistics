@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 5.2.3
+
+- Making the resizing of the window smoother on low-end systems.
+
+API: 5.0
+Based on novelibre 5.11.0
+
+
 ### Version 5.2.2
 
 - Set the minimum window size to 400x400 (#1). This fixes a bug where an exception is raised when the window is made too narrow.
