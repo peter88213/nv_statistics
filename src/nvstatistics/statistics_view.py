@@ -6,17 +6,17 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from tkinter import ttk
 
-from mvclib.view.observer import Observer
+from nvlib.gui.observer import Observer
+from nvstatistics.chapter_frame import ChapterFrame
 from nvstatistics.nvstatistics_locale import _
+from nvstatistics.part_frame import PartFrame
 from nvstatistics.platform.platform_settings import KEYS
 from nvstatistics.platform.platform_settings import PLATFORM
-from nvstatistics.statistics_view_ctrl import StatisticsViewCtrl
-from nvstatistics.part_frame import PartFrame
-from nvstatistics.chapter_frame import ChapterFrame
-from nvstatistics.section_frame import SectionFrame
-from nvstatistics.pov_frame import PovFrame
-from nvstatistics.plotstruct_frame import PlotstructFrame
 from nvstatistics.plotline_frame import PlotlineFrame
+from nvstatistics.plotstruct_frame import PlotstructFrame
+from nvstatistics.pov_frame import PovFrame
+from nvstatistics.section_frame import SectionFrame
+from nvstatistics.statistics_view_ctrl import StatisticsViewCtrl
 import tkinter as tk
 
 
