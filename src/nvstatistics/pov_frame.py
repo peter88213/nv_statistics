@@ -40,20 +40,18 @@ class PovFrame(StatisticsFrame):
         y = self._LBL_HEIGHT
         self.canvas.delete("all")
         for crId in self.viewpointSections:
-            if not self.viewpointSections[crId]:
-                continue
-
-            y += self._LBL_HEIGHT
-            y1 = y
-            y2 = y1 + self._BAR_HEIGHT
-            self.canvas.create_rectangle(x0, y1, x3, y2, fill=self._BG_COLOR)
-            for position, wordCount in self.viewpointSections[crId]:
-                if wordCount > 0:
-                    x1 = x0 + position * wcNorm
-                    x2 = x1 + wordCount * wcNorm
-                    self.canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
-            title = textwrap.shorten(self._mdl.novel.characters[crId].title, width=self._TEXT_MAX)
-            titleLabel = self.canvas.create_text((self._LBL_WIDTH, y + self._HALF_BAR), text=title, fill=self._TEXT_COLOR, anchor='e', tags=crId)
-            self.canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
+            if self.viewpointSections[crId]:
+                y += self._LBL_HEIGHT
+                y1 = y
+                y2 = y1 + self._BAR_HEIGHT
+                self.canvas.create_rectangle(x0, y1, x3, y2, fill=self._BG_COLOR)
+                for position, wordCount in self.viewpointSections[crId]:
+                    if wordCount > 0:
+                        x1 = x0 + position * wcNorm
+                        x2 = x1 + wordCount * wcNorm
+                        self.canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
+                title = textwrap.shorten(self._mdl.novel.characters[crId].title, width=self._TEXT_MAX)
+                titleLabel = self.canvas.create_text((self._LBL_WIDTH, y + self._HALF_BAR), text=title, fill=self._TEXT_COLOR, anchor='e', tags=crId)
+                self.canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
         self._adjust_scrollbar()
 
