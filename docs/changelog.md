@@ -12,6 +12,14 @@ API: 5.0
 Based on novelibre 5.16.2
 
 
+### Version 5.2.5
+
+- Disabling the toolbar button when closing the project.
+
+API: 5.0
+Based on novelibre 5.16.3
+
+
 ### Version 5.2.3
 
 - Making the resizing of the window smoother on low-end systems.

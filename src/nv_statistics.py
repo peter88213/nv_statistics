@@ -41,6 +41,7 @@ class Plugin(PluginBase):
         Overrides the superclass method.
         """
         self._ui.toolsMenu.entryconfig(self.FEATURE, state='disabled')
+        self._stButton.config(state='disabled')
 
     def enable_menu(self):
         """Enable menu entries when a project is open.
@@ -48,6 +49,7 @@ class Plugin(PluginBase):
         Overrides the superclass method.
         """
         self._ui.toolsMenu.entryconfig(self.FEATURE, state='normal')
+        self._stButton.config(state='normal')
 
     def install(self, model, view, controller):
         """Install the plugin.
@@ -106,14 +108,14 @@ class Plugin(PluginBase):
         tk.Frame(self._ui.toolbar.buttonBar, bg='light gray', width=1).pack(side='left', fill='y', padx=4)
 
         # Put a button on the toolbar.
-        self._tlButton = ttk.Button(
+        self._stButton = ttk.Button(
             self._ui.toolbar.buttonBar,
             text=self.FEATURE,
             image=tlIcon,
             command=self.start_viewer
             )
-        self._tlButton.pack(side='left')
-        self._tlButton.image = tlIcon
+        self._stButton.pack(side='left')
+        self._stButton.image = tlIcon
 
         # Initialize tooltip.
         if not prefs['enable_hovertips']:
@@ -124,5 +126,5 @@ class Plugin(PluginBase):
         except ModuleNotFoundError:
             return
 
-        Hovertip(self._tlButton, self._tlButton['text'])
+        Hovertip(self._stButton, self._stButton['text'])
 
