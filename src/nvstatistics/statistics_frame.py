@@ -19,7 +19,9 @@ class StatisticsFrame(ABC, ScrollFrame, SubController):
 
     def __init__(self, model, view, controller, prefs, parent, *args, **kw):
         ScrollFrame.__init__(self, parent, *args, **kw)
-        super().initialize_controller(model, view, controller)
+        self._mdl = model
+        self._ui = view
+        self._ctrl = controller
         self.prefs = prefs
         self._HALF_BAR = self._BAR_HEIGHT / 2
         self._TEXT_COLOR = self.prefs['color_text']
@@ -43,7 +45,8 @@ class StatisticsFrame(ABC, ScrollFrame, SubController):
     def _get_win_scaling(self):
         self.update()
         # update() makes resizing the window smoother than update_idletasks().
-        # However, this requires the semaphore used with the StatisticsView.redraw() method.
+        # However, this requires the semaphore used with the
+        # StatisticsView.redraw() method.
 
         x0 = self._LBL_WIDTH + self._LBL_DIST
         x3 = self.winfo_width() - self._RIGHT_MARGIN

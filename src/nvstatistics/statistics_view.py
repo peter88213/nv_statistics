@@ -16,11 +16,11 @@ from nvstatistics.plotline_frame import PlotlineFrame
 from nvstatistics.plotstruct_frame import PlotstructFrame
 from nvstatistics.pov_frame import PovFrame
 from nvstatistics.section_frame import SectionFrame
-from nvstatistics.statistics_view_ctrl import StatisticsViewCtrl
+from nvlib.controller.sub_controller import SubController
 import tkinter as tk
 
 
-class StatisticsView(tk.Toplevel, Observer, StatisticsViewCtrl):
+class StatisticsView(tk.Toplevel, Observer, SubController):
 
     def __init__(self, model, view, controller, prefs):
         tk.Toplevel.__init__(self)
@@ -38,12 +38,48 @@ class StatisticsView(tk.Toplevel, Observer, StatisticsViewCtrl):
         self.view.enable_traversal()
         self.view.pack(fill='both', expand=True)
 
-        self.partFrame = PartFrame(model, view, controller, prefs, self.view)
-        self.chapterFrame = ChapterFrame(model, view, controller, prefs, self.view)
-        self.sectionFrame = SectionFrame(model, view, controller, prefs, self.view)
-        self.povFrame = PovFrame(model, view, controller, prefs, self.view)
-        self.plotstructureFrame = PlotstructFrame(model, view, controller, prefs, self.view)
-        self.plotlineFrame = PlotlineFrame(model, view, controller, prefs, self.view)
+        self.partFrame = PartFrame(
+            model,
+            view,
+            controller,
+            prefs,
+            self.view,
+        )
+        self.chapterFrame = ChapterFrame(
+            model,
+            view,
+            controller,
+            prefs,
+            self.view,
+        )
+        self.sectionFrame = SectionFrame(
+            model,
+            view,
+            controller,
+            prefs,
+            self.view,
+        )
+        self.povFrame = PovFrame(
+            model,
+            view,
+            controller,
+            prefs,
+            self.view,
+        )
+        self.plotstructureFrame = PlotstructFrame(
+            model,
+            view,
+            controller,
+            prefs,
+            self.view,
+        )
+        self.plotlineFrame = PlotlineFrame(
+            model,
+            view,
+            controller,
+            prefs,
+            self.view,
+        )
 
         self._frames = [
             (self.sectionFrame, _('Sections')),
@@ -59,14 +95,19 @@ class StatisticsView(tk.Toplevel, Observer, StatisticsViewCtrl):
         self.activeFrame = self._frames[0][0]
 
         # "Close" button.
-        ttk.Button(self, text=_('Close'), command=self.on_quit).pack(anchor='e', padx=5, pady=5)
+        ttk.Button(
+            self,
+            text=_('Close'),
+            command=self.on_quit,
+        ).pack(anchor='e', padx=5, pady=5)
 
         # Respond to windows resizing.
         self.redrawing = False
         # semaphore to prevent overflow
         self.bind('<Configure>', self.redraw)
 
-        self.initialize_controller(model, view, controller)
+        self._mdl = model
+        self.isOpen = True
         self._mdl.add_observer(self)
 
     def clear_frames(self):

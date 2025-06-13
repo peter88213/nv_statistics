@@ -25,7 +25,12 @@ class PlotlineFrame(StatisticsFrame):
                 for scId in self._mdl.tree.get_children(chId):
                     if self._mdl.novel.sections[scId].scType == 0:
                         for plId in self._mdl.novel.sections[scId].scPlotLines:
-                            self.plotlineSections[plId].append((self.wordsTotal, self._mdl.novel.sections[scId].wordCount))
+                            self.plotlineSections[plId].append(
+                                (
+                                    self.wordsTotal,
+                                    self._mdl.novel.sections[scId].wordCount
+                                )
+                            )
                         self.wordsTotal += self._mdl.novel.sections[scId].wordCount
 
     def draw(self):
@@ -48,9 +53,19 @@ class PlotlineFrame(StatisticsFrame):
                     x1 = x0 + position * wcNorm
                     x2 = x1 + wordCount * wcNorm
                     self.canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
-            title = f'{self._mdl.novel.plotLines[plId].shortName} - {self._mdl.novel.plotLines[plId].title}'
+            title = (
+                f'{self._mdl.novel.plotLines[plId].shortName}'
+                f' - {self._mdl.novel.plotLines[plId].title}'
+            )
             title = textwrap.shorten(title, width=self._TEXT_MAX)
-            titleLabel = self.canvas.create_text((self._LBL_WIDTH, y + self._HALF_BAR), text=title, fill=self._TEXT_COLOR, anchor='e', tags=plId)
-            self.canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
+            titleLabel = self.canvas.create_text(
+                (self._LBL_WIDTH, y + self._HALF_BAR),
+                text=title,
+                fill=self._TEXT_COLOR,
+                anchor='e',
+                tags=plId,
+            )
+            self.canvas.tag_bind(
+                titleLabel, '<Double-Button-1>', self._on_double_click)
         self._adjust_scrollbar()
 

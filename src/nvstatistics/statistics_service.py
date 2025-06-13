@@ -30,7 +30,9 @@ class StatisticsService(SubController):
     OPTIONS = {}
 
     def __init__(self, model, view, controller):
-        super().initialize_controller(model, view, controller)
+        self._mdl = model
+        self._ui = view
+        self._ctrl = controller
         self.statisticsView = None
 
         #--- Load configuration.
@@ -43,7 +45,7 @@ class StatisticsService(SubController):
         self.configuration = self._mdl.nvService.new_configuration(
             settings=self.SETTINGS,
             options=self.OPTIONS
-            )
+        )
         self.configuration.read(self.iniFile)
         self.prefs = {}
         self.prefs.update(self.configuration.settings)
@@ -82,6 +84,11 @@ class StatisticsService(SubController):
                 self.statisticsView.focus()
                 return
 
-        self.statisticsView = StatisticsView(self._mdl, self._ui, self._ctrl, self.prefs)
+        self.statisticsView = StatisticsView(
+            self._mdl,
+            self._ui,
+            self._ctrl,
+            self.prefs,
+        )
         self.statisticsView.title(f'{self._mdl.novel.title} - {windowTitle}')
         set_icon(self.statisticsView, icon='sLogo32', default=False)
