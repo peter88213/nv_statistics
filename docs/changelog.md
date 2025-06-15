@@ -5,6 +5,16 @@
 ## Changelog
 
 
+### Version 5.3.0
+
+- Refactored the code for better maintainability.
+  Reintegrated the controller mixin class into the view class.
+- Reformatted parts of the code according to PEP-8.
+
+API: 5.0
+Based on novelibre 5.26.4
+
+
 ### Version 5.2.5
 
 - Disabling the toolbar button when closing the project.
