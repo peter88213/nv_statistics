@@ -24,8 +24,8 @@ class PovFrame(StatisticsFrame):
             if self._mdl.novel.chapters[chId].chType == 0:
                 for scId in self._mdl.tree.get_children(chId):
                     if self._mdl.novel.sections[scId].scType == 0:
-                        if self._mdl.novel.sections[scId].characters:
-                            crId = self._mdl.novel.sections[scId].characters[0]
+                        if self._mdl.novel.sections[scId].viewpoint:
+                            crId = self._mdl.novel.sections[scId].viewpoint
                             self.viewpointSections[crId].append(
                                 (
                                     self.wordsTotal,
