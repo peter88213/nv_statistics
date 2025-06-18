@@ -28,7 +28,7 @@ import tkinter as tk
 class Plugin(PluginBase):
     """Statistics view plugin class."""
     VERSION = '@release'
-    API_VERSION = '5.0'
+    API_VERSION = '5.27'
     DESCRIPTION = 'A project statistics view'
     URL = 'https://github.com/peter88213/nv_statistics'
     HELP_URL = f'{_("https://peter88213.github.io/nvhelp-en")}/nv_statistics'
