@@ -27,15 +27,16 @@ class PlotstructFrame(StatisticsFrame):
                 for scId in self._mdl.tree.get_children(chId):
                     if self._mdl.novel.sections[scId].scType == 0:
                         if stage1Id is not None:
-                            self.stage1Words[
-                                stage1Id] += self._mdl.novel.sections[
-                                    scId].wordCount
+                            self.stage1Words[stage1Id] += (
+                                self._mdl.novel.sections[scId].wordCount
+                            )
                         if stage2Id is not None:
-                            self.stage2Words[
-                                stage2Id] += self._mdl.novel.sections[
-                                    scId].wordCount
-                        self.wordsTotal += self._mdl.novel.sections[
-                            scId].wordCount
+                            self.stage2Words[stage2Id] += (
+                                    self._mdl.novel.sections[scId].wordCount
+                                )
+                        self.wordsTotal += (
+                            self._mdl.novel.sections[scId].wordCount
+                        )
                     elif self._mdl.novel.sections[scId].scType == 2:
                         stage1Id = scId
                         self.stage1Words[stage1Id] = 0

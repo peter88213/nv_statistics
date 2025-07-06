@@ -27,10 +27,12 @@ class PartFrame(StatisticsFrame):
                 for scId in self._mdl.tree.get_children(chId):
                     if self._mdl.novel.sections[scId].scType == 0:
                         if partId is not None:
-                            self.partWords[partId] += self._mdl.novel.sections[
-                                scId].wordCount
-                        self.wordsTotal += self._mdl.novel.sections[
-                            scId].wordCount
+                            self.partWords[partId] += (
+                                self._mdl.novel.sections[scId].wordCount
+                            )
+                        self.wordsTotal += (
+                            self._mdl.novel.sections[scId].wordCount
+                        )
 
     def draw(self):
         try:
