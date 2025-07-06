@@ -22,8 +22,10 @@ class SectionFrame(StatisticsFrame):
             if self._mdl.novel.chapters[chId].chType == 0:
                 for scId in self._mdl.tree.get_children(chId):
                     if self._mdl.novel.sections[scId].scType == 0:
-                        self.sectionWords[scId] = self._mdl.novel.sections[scId].wordCount
-                        self.wordsTotal += self._mdl.novel.sections[scId].wordCount
+                        self.sectionWords[scId] = self._mdl.novel.sections[
+                            scId].wordCount
+                        self.wordsTotal += self._mdl.novel.sections[
+                            scId].wordCount
 
     def draw(self):
         try:

@@ -24,8 +24,10 @@ class ChapterFrame(StatisticsFrame):
                     self.chapterWords[chId] = 0
                 for scId in self._mdl.tree.get_children(chId):
                     if self._mdl.novel.sections[scId].scType == 0:
-                        self.chapterWords[chId] += self._mdl.novel.sections[scId].wordCount
-                        self.wordsTotal += self._mdl.novel.sections[scId].wordCount
+                        self.chapterWords[chId] += self._mdl.novel.sections[
+                            scId].wordCount
+                        self.wordsTotal += self._mdl.novel.sections[
+                            scId].wordCount
 
     def draw(self):
         try:
@@ -56,6 +58,10 @@ class ChapterFrame(StatisticsFrame):
                 anchor='e',
                 tags=chId,
             )
-            self.canvas.tag_bind(titleLabel, '<Double-Button-1>', self._on_double_click)
+            self.canvas.tag_bind(
+                titleLabel,
+                '<Double-Button-1>',
+                self._on_double_click
+            )
         self._adjust_scrollbar()
 

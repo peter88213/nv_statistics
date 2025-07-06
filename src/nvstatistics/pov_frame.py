@@ -32,7 +32,8 @@ class PovFrame(StatisticsFrame):
                                     self._mdl.novel.sections[scId].wordCount
                                 )
                             )
-                        self.wordsTotal += self._mdl.novel.sections[scId].wordCount
+                        self.wordsTotal += self._mdl.novel.sections[
+                            scId].wordCount
 
     def draw(self):
         try:

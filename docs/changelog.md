@@ -5,6 +5,15 @@
 ## Changelog
 
 
+### Version 5.4.1
+
+- Changed the icon.
+- Reformatted the code according to PEP-8.
+
+API: 5.27
+Based on novelibre 5.29.0
+
+
 ### Version 5.4.0
 
 Update for novelibre 5.27.

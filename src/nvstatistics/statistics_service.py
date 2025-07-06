@@ -91,4 +91,4 @@ class StatisticsService(SubController):
             self.prefs,
         )
         self.statisticsView.title(f'{self._mdl.novel.title} - {windowTitle}')
-        set_icon(self.statisticsView, icon='sLogo32', default=False)
+        set_icon(self.statisticsView, icon='statistics', default=False)

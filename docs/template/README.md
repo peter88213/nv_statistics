@@ -4,7 +4,7 @@
 [![Online help](docs/img/help-button.png)](https://peter88213.github.io/nvhelp-en/nv_statistics/)
 
 
-# ![W](icons/sLogo32.png) nv_statistics
+# ![S](icons/statistics.png) nv_statistics
 
 The [novelibre](https://github.com/peter88213/novelibre/) Python program helps authors organize novels.  
 
@@ -68,6 +68,12 @@ The package is also available in zip format: [nv_statistics_v0.99.0.zip](https:/
 ## Usage
 
 See the [online manual](https://peter88213.github.io/nvhelp-en/nv_statistics/)
+
+---
+
+## Credits
+
+- The logo is based on the [Eva Icons](https://akveo.github.io/eva-icons/#/), published under the [MIT License](http://www.opensource.org/licenses/mit-license.php). The original black and white icons were adapted for this application by the maintainer. 
 
 ---
 
