@@ -73,7 +73,7 @@ See the [online manual](https://peter88213.github.io/nvhelp-en/nv_statistics/)
 
 ## Credits
 
-- The logo is based on the [Eva Icons](https://akveo.github.io/eva-icons/#/), published under the [MIT License](http://www.opensource.org/licenses/mit-license.php). The original black and white icons were adapted for this application by the maintainer. 
+- The icons are based on the [Eva Icons](https://akveo.github.io/eva-icons/#/), published under the [MIT License](http://www.opensource.org/licenses/mit-license.php). The original black and white icons were colored for this plugin by the maintainer. 
 
 ---
 
