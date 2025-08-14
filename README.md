@@ -1,4 +1,4 @@
-[![Download the latest release](docs/img/download-button.png)](https://github.com/peter88213/nv_statistics/raw/main/dist/nv_statistics_v5.4.2.pyzw)
+[![Download the latest release](docs/img/download-button.png)](https://github.com/peter88213/nv_statistics/raw/main/dist/nv_statistics_v5.4.2.pyz)
 [![Changelog](docs/img/changelog-button.png)](docs/changelog.md)
 [![News/Feedback](docs/img/news-button.png)](https://github.com/peter88213/novelibre/discussions)
 [![Online help](docs/img/help-button.png)](https://peter88213.github.io/nvhelp-en/nv_statistics/)
@@ -36,10 +36,10 @@ in all the used sections.
 
 ### Default: Executable Python zip archive
 
-Download the latest release [nv_statistics_v5.4.2.pyzw](https://github.com/peter88213/nv_statistics/raw/main/dist/nv_statistics_v5.4.2.pyzw)
+Download the latest release [nv_statistics_v5.4.2.pyz](https://github.com/peter88213/nv_statistics/raw/main/dist/nv_statistics_v5.4.2.pyz)
 
-- Launch *nv_statistics_v5.4.2.pyzw* by double-clicking (Windows/Linux desktop),
-- or execute `python nv_statistics_v5.4.2.pyzw` (Windows), resp. `python3 nv_statistics_v5.4.2.pyzw` (Linux) on the command line.
+- Launch *nv_statistics_v5.4.2.pyz* by double-clicking (Windows/Linux desktop),
+- or execute `python nv_statistics_v5.4.2.pyz` (Windows), resp. `python3 nv_statistics_v5.4.2.pyz` (Linux) on the command line.
 
 #### Important
 
