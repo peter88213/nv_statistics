@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 5.4.2\n"
-"POT-Creation-Date: 2025-07-06 21:46:49\n"
+"POT-Creation-Date: 2025-08-16 15:20:01\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -13,6 +13,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: novxlib pgettext.py 0.3\n"
 
+
+msgid "1st Edit"
+msgstr ""
+
+msgid "2nd Edit"
+msgstr ""
 
 msgid "Chapters"
 msgstr ""
@@ -23,10 +29,19 @@ msgstr ""
 msgid "Ctrl"
 msgstr ""
 
+msgid "Done"
+msgstr ""
+
+msgid "Draft"
+msgstr ""
+
 msgid "Major Character"
 msgstr ""
 
 msgid "Minor Character"
+msgstr ""
+
+msgid "Outline"
 msgstr ""
 
 msgid "Parts"

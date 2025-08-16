@@ -4,14 +4,20 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 5.4.2\n"
-"POT-Creation-Date: 2025-07-06 21:46:49\n"
-"PO-Revision-Date: 2025-07-06 21:46:49\n"
+"POT-Creation-Date: 2025-08-16 15:20:01\n"
+"PO-Revision-Date: 2025-08-16 15:20:01\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+
+msgid "1st Edit"
+msgstr "1. Überarbeitung"
+
+msgid "2nd Edit"
+msgstr "2. Überarbeitung"
 
 msgid "Chapters"
 msgstr "Kapitel"
@@ -22,11 +28,20 @@ msgstr "Schließen"
 msgid "Ctrl"
 msgstr "Strg"
 
+msgid "Done"
+msgstr "Fertiggestellt"
+
+msgid "Draft"
+msgstr "Entwurf"
+
 msgid "Major Character"
 msgstr "Hauptfigur"
 
 msgid "Minor Character"
 msgstr "Nebenfigur"
+
+msgid "Outline"
+msgstr "Gliederung"
 
 msgid "Parts"
 msgstr "Teile"
