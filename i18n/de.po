@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 5.4.2\n"
-"POT-Creation-Date: 2025-08-16 15:20:01\n"
-"PO-Revision-Date: 2025-08-16 15:20:01\n"
+"Project-Id-Version: 5.5.0\n"
+"POT-Creation-Date: 2025-09-03 10:01:30\n"
+"PO-Revision-Date: 2025-09-03 10:01:30\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -19,8 +19,14 @@ msgstr "1. Überarbeitung"
 msgid "2nd Edit"
 msgstr "2. Überarbeitung"
 
+msgid "Bio"
+msgstr "Biographie"
+
 msgid "Chapters"
 msgstr "Kapitel"
+
+msgid "Characterization"
+msgstr "Charakterisierung"
 
 msgid "Close"
 msgstr "Schließen"
@@ -34,11 +40,20 @@ msgstr "Fertiggestellt"
 msgid "Draft"
 msgstr "Entwurf"
 
+msgid "Ending"
+msgstr "Ende"
+
+msgid "Goals"
+msgstr "Ziele"
+
 msgid "Major Character"
 msgstr "Hauptfigur"
 
 msgid "Minor Character"
 msgstr "Nebenfigur"
+
+msgid "Opening"
+msgstr "Eröffnung"
 
 msgid "Outline"
 msgstr "Gliederung"
@@ -46,8 +61,14 @@ msgstr "Gliederung"
 msgid "Parts"
 msgstr "Teile"
 
+msgid "Peak emotional moment"
+msgstr "Emotionaler Höhepunkt"
+
 msgid "Plot lines"
 msgstr "Plotlinien"
+
+msgid "Plot progress"
+msgstr "Handlungsfortschritt"
 
 msgid "Plot structure"
 msgstr "Plotstruktur"
@@ -69,6 +90,9 @@ msgstr "Stadien (zweite Ebene)"
 
 msgid "Viewpoints"
 msgstr "Perspektiven"
+
+msgid "World building"
+msgstr "Weltenbau"
 
 msgid "https://peter88213.github.io/nvhelp-en"
 msgstr "https://peter88213.github.io/nvhelp-de"

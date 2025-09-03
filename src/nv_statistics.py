@@ -28,7 +28,7 @@ import tkinter as tk
 class Plugin(PluginBase):
     """Statistics view plugin class."""
     VERSION = '@release'
-    API_VERSION = '5.27'
+    API_VERSION = '5.35'
     DESCRIPTION = 'A project statistics view'
     URL = 'https://github.com/peter88213/nv_statistics'
     HELP_URL = f'{_("https://peter88213.github.io/nvhelp-en")}/nv_statistics'
@@ -120,12 +120,9 @@ class Plugin(PluginBase):
         if not self._ctrl.get_preferences()['enable_hovertips']:
             return
 
-        try:
-            from idlelib.tooltip import Hovertip
-        except ModuleNotFoundError:
-            return
-
-        Hovertip(self._stButton, self._stButton['text'])
+        self._mdl.nvService.new_hovertip(
+            self._stButton, self._stButton['text']
+        )
 
     def _get_icon(self, fileName):
         # Return the icon for the main view.

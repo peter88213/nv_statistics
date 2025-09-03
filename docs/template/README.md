@@ -30,7 +30,7 @@ in all the used sections.
 
 ## Requirements
 
-- [novelibre](https://github.com/peter88213/novelibre/) version 5.27+
+- [novelibre](https://github.com/peter88213/novelibre/) version 5.35+
 
 ## Download and install
 
