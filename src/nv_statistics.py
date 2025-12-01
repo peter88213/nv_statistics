@@ -15,41 +15,22 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 """
-from pathlib import Path
-from tkinter import ttk
 import webbrowser
 
 from nvstatistics.nvstatistics_locale import _
 from nvlib.controller.plugin.plugin_base import PluginBase
 from nvstatistics.statistics_service import StatisticsService
-import tkinter as tk
 
 
 class Plugin(PluginBase):
     """Statistics view plugin class."""
     VERSION = '@release'
-    API_VERSION = '5.35'
+    API_VERSION = '5.44'
     DESCRIPTION = 'A project statistics view'
     URL = 'https://github.com/peter88213/nv_statistics'
     HELP_URL = f'{_("https://peter88213.github.io/nvhelp-en")}/nv_statistics'
 
     FEATURE = _('Project statistics view')
-
-    def disable_menu(self):
-        """Disable menu entries when no project is open.
-        
-        Overrides the superclass method.
-        """
-        self._ui.toolsMenu.entryconfig(self.FEATURE, state='disabled')
-        self._stButton.config(state='disabled')
-
-    def enable_menu(self):
-        """Enable menu entries when a project is open.
-        
-        Overrides the superclass method.
-        """
-        self._ui.toolsMenu.entryconfig(self.FEATURE, state='normal')
-        self._stButton.config(state='normal')
 
     def install(self, model, view, controller):
         """Install the plugin.
@@ -65,25 +46,38 @@ class Plugin(PluginBase):
         self.statisticsService = StatisticsService(model, view, controller)
         self._icon = self._get_icon('statistics.png')
 
+        #--- Configure the main menu.
+
         # Create an entry in the Tools menu.
+        label = self.FEATURE
         self._ui.toolsMenu.add_command(
-            label=self.FEATURE,
+            label=label,
             image=self._icon,
             compound='left',
             command=self.start_viewer,
             state='disabled',
         )
+        self._ui.toolsMenu.disableOnClose.append(label)
 
         # Add an entry to the Help menu.
+        label = _('Project statistics Online help')
         self._ui.helpMenu.add_command(
-            label=_('Project statistics Online help'),
+            label=label,
             image=self._icon,
             compound='left',
             command=self.open_help,
         )
 
         #--- Configure the toolbar.
-        self._configure_toolbar()
+        self._ui.toolbar.add_separator(),
+
+        # Put a button on the toolbar.
+        self._ui.toolbar.new_button(
+            text=self.FEATURE,
+            image=self._icon,
+            command=self.start_viewer,
+            disableOnLock=False,
+        ).pack(side='left')
 
     def on_close(self):
         self.statisticsService.on_close()
@@ -97,43 +91,3 @@ class Plugin(PluginBase):
     def start_viewer(self):
         self.statisticsService.start_viewer(self.FEATURE)
 
-    def _configure_toolbar(self):
-
-        # Put a Separator on the toolbar.
-        tk.Frame(
-            self._ui.toolbar.buttonBar,
-            bg='light gray',
-            width=1,
-        ).pack(side='left', fill='y', padx=4)
-
-        # Put a button on the toolbar.
-        self._stButton = ttk.Button(
-            self._ui.toolbar.buttonBar,
-            text=self.FEATURE,
-            image=self._icon,
-            command=self.start_viewer,
-        )
-        self._stButton.pack(side='left')
-        self._stButton.image = self._icon
-
-        # Initialize tooltip.
-        if not self._ctrl.get_preferences()['enable_hovertips']:
-            return
-
-        self._mdl.nvService.new_hovertip(
-            self._stButton, self._stButton['text']
-        )
-
-    def _get_icon(self, fileName):
-        # Return the icon for the main view.
-        if self._ctrl.get_preferences().get('large_icons', False):
-            size = 24
-        else:
-            size = 16
-        try:
-            homeDir = str(Path.home()).replace('\\', '/')
-            iconPath = f'{homeDir}/.novx/icons/{size}'
-            icon = tk.PhotoImage(file=f'{iconPath}/{fileName}')
-        except:
-            icon = None
-        return icon
