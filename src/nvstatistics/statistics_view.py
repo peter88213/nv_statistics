@@ -6,8 +6,10 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from tkinter import ttk
 
+from nvlib.controller.sub_controller import SubController
 from nvlib.gui.observer import Observer
 from nvstatistics.chapter_frame import ChapterFrame
+from nvstatistics.nvstatistics_globals import prefs
 from nvstatistics.nvstatistics_locale import _
 from nvstatistics.part_frame import PartFrame
 from nvstatistics.platform.platform_settings import KEYS
@@ -16,18 +18,16 @@ from nvstatistics.plotline_frame import PlotlineFrame
 from nvstatistics.plotstruct_frame import PlotstructFrame
 from nvstatistics.pov_frame import PovFrame
 from nvstatistics.section_frame import SectionFrame
-from nvlib.controller.sub_controller import SubController
 import tkinter as tk
 
 
 class StatisticsView(tk.Toplevel, Observer, SubController):
 
-    def __init__(self, model, view, controller, prefs):
+    def __init__(self, model, view, controller):
         tk.Toplevel.__init__(self)
         self.minsize(400, 400)
-        self.prefs = prefs
-
-        self.geometry(self.prefs['window_geometry'])
+        print(prefs)
+        self.geometry(prefs['window_geometry'])
         self.lift()
         self.focus()
         self.protocol("WM_DELETE_WINDOW", self.on_quit)
@@ -42,42 +42,36 @@ class StatisticsView(tk.Toplevel, Observer, SubController):
             model,
             view,
             controller,
-            prefs,
             self.view,
         )
         self.chapterFrame = ChapterFrame(
             model,
             view,
             controller,
-            prefs,
             self.view,
         )
         self.sectionFrame = SectionFrame(
             model,
             view,
             controller,
-            prefs,
             self.view,
         )
         self.povFrame = PovFrame(
             model,
             view,
             controller,
-            prefs,
             self.view,
         )
         self.plotstructureFrame = PlotstructFrame(
             model,
             view,
             controller,
-            prefs,
             self.view,
         )
         self.plotlineFrame = PlotlineFrame(
             model,
             view,
             controller,
-            prefs,
             self.view,
         )
 
@@ -118,7 +112,7 @@ class StatisticsView(tk.Toplevel, Observer, SubController):
     def on_quit(self, event=None):
         self.isOpen = False
         self._mdl.delete_observer(self)
-        self.prefs['window_geometry'] = self.winfo_geometry()
+        prefs['window_geometry'] = self.winfo_geometry()
         self.destroy()
 
     def redraw(self, event=None):

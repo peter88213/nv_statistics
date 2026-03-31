@@ -7,6 +7,7 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 from abc import ABC, abstractmethod
 
 from nvlib.controller.sub_controller import SubController
+from nvstatistics.nvstatistics_globals import prefs
 from nvstatistics.scroll_frame import ScrollFrame
 
 
@@ -17,17 +18,14 @@ class StatisticsFrame(ABC, ScrollFrame, SubController):
     _LBL_HEIGHT = 20
     _BAR_HEIGHT = 10
 
-    def __init__(self, model, view, controller, prefs, parent, *args, **kw):
+    def __init__(self, model, view, controller, parent, *args, **kw):
         ScrollFrame.__init__(self, parent, *args, **kw)
         self._mdl = model
         self._ui = view
         self._ctrl = controller
-        self.prefs = prefs
         self._HALF_BAR = self._BAR_HEIGHT / 2
-        self._TEXT_COLOR = self.prefs['color_text']
-        self._BG_COLOR = self.prefs['color_filler']
         self._TEXT_MAX = self._LBL_WIDTH / 5
-        self.canvas['background'] = self.prefs['color_background']
+        self.canvas['background'] = prefs['color_background']
         self.wordsTotal = 0
 
     @abstractmethod

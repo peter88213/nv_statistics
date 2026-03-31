@@ -8,6 +8,7 @@ from pathlib import Path
 
 from nvlib.controller.sub_controller import SubController
 from nvlib.gui.set_icon_tk import set_icon
+from nvstatistics.nvstatistics_globals import prefs
 from nvstatistics.statistics_view import StatisticsView
 
 
@@ -47,9 +48,8 @@ class StatisticsService(SubController):
             filePath=f'{configDir}/{self.INI_FILENAME}',
         )
         self.configuration.read()
-        self.prefs = {}
-        self.prefs.update(self.configuration.settings)
-        self.prefs.update(self.configuration.options)
+        prefs.update(self.configuration.settings)
+        prefs.update(self.configuration.options)
 
     def on_close(self):
         """Close the window.
@@ -68,11 +68,11 @@ class StatisticsService(SubController):
                 self.statisticsView.on_quit()
 
         #--- Save configuration
-        for keyword in self.prefs:
+        for keyword in prefs:
             if keyword in self.configuration.options:
-                self.configuration.options[keyword] = self.prefs[keyword]
+                self.configuration.options[keyword] = prefs[keyword]
             elif keyword in self.configuration.settings:
-                self.configuration.settings[keyword] = self.prefs[keyword]
+                self.configuration.settings[keyword] = prefs[keyword]
         self.configuration.write()
 
     def start_viewer(self, windowTitle):
@@ -88,7 +88,6 @@ class StatisticsService(SubController):
             self._mdl,
             self._ui,
             self._ctrl,
-            self.prefs,
         )
         self.statisticsView.title(f'{self._mdl.novel.title} - {windowTitle}')
         set_icon(self.statisticsView, icon='statistics', default=False)

@@ -7,6 +7,7 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 import textwrap
 
 from nvlib.novx_globals import CH_ROOT
+from nvstatistics.nvstatistics_globals import prefs
 from nvstatistics.nvstatistics_locale import _
 from nvstatistics.statistics_frame import StatisticsFrame
 
@@ -59,14 +60,14 @@ class PlotstructFrame(StatisticsFrame):
             self._LBL_DIST,
             y,
             text=heading,
-            fill=self._TEXT_COLOR,
+            fill=prefs['color_text'],
             anchor='w',
         )
         x2 = self._LBL_WIDTH + self._LBL_DIST
         for scId in self.stage1Words:
             barColor = (
                 self._mdl.novel.sections[scId].color
-                or self.prefs['color_stage1']
+                or prefs['color_stage1']
             )
             title = textwrap.shorten(
                 self._mdl.novel.sections[scId].title,
@@ -83,12 +84,12 @@ class PlotstructFrame(StatisticsFrame):
                 x2,
                 y2,
                 fill=barColor,
-                outline=self._BG_COLOR,
+                outline=prefs['color_filler'],
             )
             titleLabel = self.canvas.create_text(
                 (x1 - self._LBL_DIST, y + self._HALF_BAR),
                 text=title,
-                fill=self._TEXT_COLOR,
+                fill=prefs['color_text'],
                 anchor='e',
                 tags=scId,
             )
@@ -101,12 +102,12 @@ class PlotstructFrame(StatisticsFrame):
             self._LBL_DIST,
             y,
             text=heading,
-            fill=self._TEXT_COLOR,
+            fill=prefs['color_text'],
             anchor='w',
         )
         barColor = (
             self._mdl.novel.sections[scId].color
-            or self.prefs['color_stage2']
+            or prefs['color_stage2']
         )
         x2 = self._LBL_WIDTH + self._LBL_DIST
         for scId in self.stage2Words:
@@ -125,12 +126,12 @@ class PlotstructFrame(StatisticsFrame):
                 x2,
                 y2,
                 fill=barColor,
-                outline=self._BG_COLOR,
+                outline=prefs['color_filler'],
             )
             titleLabel = self.canvas.create_text(
                 (x1 - self._LBL_DIST, y + self._HALF_BAR),
                 text=title,
-                fill=self._TEXT_COLOR,
+                fill=prefs['color_text'],
                 anchor='e',
                 tags=scId,
             )

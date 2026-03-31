@@ -7,6 +7,7 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 import textwrap
 
 from nvlib.novx_globals import CH_ROOT
+from nvstatistics.nvstatistics_globals import prefs
 from nvstatistics.statistics_frame import StatisticsFrame
 
 
@@ -46,7 +47,7 @@ class PovFrame(StatisticsFrame):
         y = self._LBL_HEIGHT
         self.canvas.delete("all")
         for crId in self.viewpointSections:
-            barColor = self._mdl.novel.characters[crId].color or self.prefs['color_viewpoint']
+            barColor = self._mdl.novel.characters[crId].color or prefs['color_viewpoint']
             if self.viewpointSections[crId]:
                 y += self._LBL_HEIGHT
                 y1 = y
@@ -56,8 +57,8 @@ class PovFrame(StatisticsFrame):
                     y1,
                     x3,
                     y2,
-                    fill=self._BG_COLOR,
-                    outline=self._BG_COLOR,
+                    fill=prefs['color_filler'],
+                    outline=prefs['color_filler'],
                 )
                 for position, wordCount in self.viewpointSections[crId]:
                     if wordCount > 0:
@@ -69,7 +70,7 @@ class PovFrame(StatisticsFrame):
                             x2,
                             y2,
                             fill=barColor,
-                            outline=self._BG_COLOR,
+                            outline=prefs['color_filler'],
                         )
                 title = textwrap.shorten(
                     self._mdl.novel.characters[crId].title,
@@ -78,7 +79,7 @@ class PovFrame(StatisticsFrame):
                 titleLabel = self.canvas.create_text(
                     (self._LBL_WIDTH, y + self._HALF_BAR),
                     text=title,
-                    fill=self._TEXT_COLOR,
+                    fill=prefs['color_text'],
                     anchor='e',
                     tags=crId,
                 )
