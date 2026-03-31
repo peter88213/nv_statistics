@@ -5,6 +5,15 @@
 ## Changelog
 
 
+### Version 5.8.0
+
+- Using the elements' colors, if defined.
+- Refactored the code for better maintainability.
+
+API: 5.55
+Based on novelibre 5.55.1
+
+
 ### Version 5.7.0
 
 - Refactored the code for better maintainability.

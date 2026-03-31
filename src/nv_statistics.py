@@ -25,7 +25,7 @@ from nvstatistics.statistics_service import StatisticsService
 class Plugin(PluginBase):
     """Statistics view plugin class."""
     VERSION = '@release'
-    API_VERSION = '5.50'
+    API_VERSION = '5.55'
     DESCRIPTION = 'A project statistics view'
     URL = 'https://github.com/peter88213/nv_statistics'
     HELP_URL = f'{_("https://peter88213.github.io/nvhelp-en")}/nv_statistics'
