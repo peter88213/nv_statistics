@@ -49,12 +49,20 @@ class PlotlineFrame(StatisticsFrame):
             y += self._LBL_HEIGHT
             y1 = y
             y2 = y1 + self._BAR_HEIGHT
-            self.canvas.create_rectangle(x0, y1, x3, y2, fill=self._BG_COLOR)
+            self.canvas.create_rectangle(
+                x0, y1, x3, y2,
+                outline=self._BG_COLOR,
+                fill=self._BG_COLOR,
+            )
             for position, wordCount in self.plotlineSections[plId]:
                 if wordCount > 0:
                     x1 = x0 + position * wcNorm
                     x2 = x1 + wordCount * wcNorm
-                    self.canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
+                    self.canvas.create_rectangle(
+                        x1, y1, x2, y2,
+                        fill=barColor,
+                        outline=self._BG_COLOR,
+                    )
             title = (
                 f'{self._mdl.novel.plotLines[plId].shortName}'
                 f' - {self._mdl.novel.plotLines[plId].title}'

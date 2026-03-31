@@ -23,9 +23,9 @@ class StatisticsService(SubController):
         color_chapter='green',
         color_stage1='red',
         color_stage2='orange',
-        color_background='black',
-        color_text='white',
-        color_filler='gray15',
+        color_background='white',
+        color_text='black',
+        color_filler='gray85',
     )
     OPTIONS = {}
 

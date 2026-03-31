@@ -57,6 +57,7 @@ class PovFrame(StatisticsFrame):
                     x3,
                     y2,
                     fill=self._BG_COLOR,
+                    outline=self._BG_COLOR,
                 )
                 for position, wordCount in self.viewpointSections[crId]:
                     if wordCount > 0:
@@ -68,6 +69,7 @@ class PovFrame(StatisticsFrame):
                             x2,
                             y2,
                             fill=barColor,
+                            outline=self._BG_COLOR,
                         )
                 title = textwrap.shorten(
                     self._mdl.novel.characters[crId].title,

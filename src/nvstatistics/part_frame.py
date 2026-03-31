@@ -55,7 +55,11 @@ class PartFrame(StatisticsFrame):
             y1 = y
             x2 = x1 + self.partWords[chId] * wcNorm
             y2 = y1 + self._BAR_HEIGHT
-            self.canvas.create_rectangle(x1, y1, x2, y2, fill=barColor)
+            self.canvas.create_rectangle(
+                x1, y1, x2, y2,
+                fill=barColor,
+                outline=self._BG_COLOR,
+            )
             titleLabel = self.canvas.create_text(
                 (x1 - self._LBL_DIST, y + self._HALF_BAR),
                 text=title,

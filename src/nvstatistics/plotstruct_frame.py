@@ -80,6 +80,7 @@ class PlotstructFrame(StatisticsFrame):
                 x2,
                 y2,
                 fill=barColor,
+                outline=self._BG_COLOR,
             )
             titleLabel = self.canvas.create_text(
                 (x1 - self._LBL_DIST, y + self._HALF_BAR),
@@ -118,6 +119,7 @@ class PlotstructFrame(StatisticsFrame):
                 x2,
                 y2,
                 fill=barColor,
+                outline=self._BG_COLOR,
             )
             titleLabel = self.canvas.create_text(
                 (x1 - self._LBL_DIST, y + self._HALF_BAR),
