@@ -43,10 +43,10 @@ class PovFrame(StatisticsFrame):
             # handling delayed refresh while the view is already closed
             return
 
-        barColor = self.prefs['color_viewpoint']
         y = self._LBL_HEIGHT
         self.canvas.delete("all")
         for crId in self.viewpointSections:
+            barColor = self._mdl.novel.characters[crId].color or self.prefs['color_viewpoint']
             if self.viewpointSections[crId]:
                 y += self._LBL_HEIGHT
                 y1 = y

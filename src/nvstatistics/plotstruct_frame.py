@@ -51,7 +51,6 @@ class PlotstructFrame(StatisticsFrame):
             # handling delayed refresh while the view is already closed
             return
 
-        barColor = self.prefs['color_stage1']
         y = self._LBL_HEIGHT
 
         self.canvas.delete("all")
@@ -65,6 +64,10 @@ class PlotstructFrame(StatisticsFrame):
         )
         x2 = self._LBL_WIDTH + self._LBL_DIST
         for scId in self.stage1Words:
+            barColor = (
+                self._mdl.novel.sections[scId].color
+                or self.prefs['color_stage1']
+            )
             title = textwrap.shorten(
                 self._mdl.novel.sections[scId].title,
                 width=x2 / 5
@@ -101,7 +104,10 @@ class PlotstructFrame(StatisticsFrame):
             fill=self._TEXT_COLOR,
             anchor='w',
         )
-        barColor = self.prefs['color_stage2']
+        barColor = (
+            self._mdl.novel.sections[scId].color
+            or self.prefs['color_stage2']
+        )
         x2 = self._LBL_WIDTH + self._LBL_DIST
         for scId in self.stage2Words:
             title = textwrap.shorten(

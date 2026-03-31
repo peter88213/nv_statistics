@@ -41,11 +41,14 @@ class PartFrame(StatisticsFrame):
             # handling delayed refresh while the view is already closed
             return
 
-        barColor = self.prefs['color_part']
         y = self._LBL_HEIGHT
         self.canvas.delete("all")
         x2 = self._LBL_WIDTH + self._LBL_DIST
         for chId in self.partWords:
+            barColor = (
+                self._mdl.novel.chapters[chId].color
+                or self.prefs['color_part']
+            )
             title = textwrap.shorten(
                 self._mdl.novel.chapters[chId].title,
                 width=x2 / 5

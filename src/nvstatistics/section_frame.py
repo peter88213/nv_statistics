@@ -36,11 +36,14 @@ class SectionFrame(StatisticsFrame):
             # handling delayed refresh while the view is already closed
             return
 
-        barColor = self.prefs['color_section']
         y = self._LBL_HEIGHT
         self.canvas.delete("all")
         x2 = self._LBL_WIDTH + self._LBL_DIST
         for scId in self.sectionWords:
+            barColor = (
+                self._mdl.novel.sections[scId].color
+                or self.prefs['color_section']
+            )
             title = textwrap.shorten(
                 self._mdl.novel.sections[scId].title,
                 width=x2 / 5

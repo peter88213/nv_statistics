@@ -42,10 +42,13 @@ class PlotlineFrame(StatisticsFrame):
             # handling delayed refresh while the view is already closed
             return
 
-        barColor = self.prefs['color_plotline']
         y = self._LBL_HEIGHT
         self.canvas.delete("all")
         for plId in self.plotlineSections:
+            barColor = (
+                self._mdl.novel.plotLines[plId].color
+                or self.prefs['color_plotline']
+            )
             y += self._LBL_HEIGHT
             y1 = y
             y2 = y1 + self._BAR_HEIGHT
