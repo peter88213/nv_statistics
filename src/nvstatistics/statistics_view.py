@@ -26,7 +26,6 @@ class StatisticsView(tk.Toplevel, Observer, SubController):
     def __init__(self, model, view, controller):
         tk.Toplevel.__init__(self)
         self.minsize(400, 400)
-        print(prefs)
         self.geometry(prefs['window_geometry'])
         self.lift()
         self.focus()

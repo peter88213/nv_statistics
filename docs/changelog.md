@@ -5,7 +5,7 @@
 ## Changelog
 
 
-### Version 5.8.0
+### Version 5.8.1
 
 - Using the elements' colors, if defined.
 - Refactored the code for better maintainability.

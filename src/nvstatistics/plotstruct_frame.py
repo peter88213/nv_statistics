@@ -105,12 +105,12 @@ class PlotstructFrame(StatisticsFrame):
             fill=prefs['color_text'],
             anchor='w',
         )
-        barColor = (
-            self._mdl.novel.sections[scId].color
-            or prefs['color_stage2']
-        )
         x2 = self._LBL_WIDTH + self._LBL_DIST
         for scId in self.stage2Words:
+            barColor = (
+                self._mdl.novel.sections[scId].color
+                or prefs['color_stage2']
+            )
             title = textwrap.shorten(
                 self._mdl.novel.sections[scId].title,
                 width=x2 / 5
