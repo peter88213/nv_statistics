@@ -5,8 +5,9 @@
 ## Changelog
 
 
-### Version 5.8.1
+### Version 5.8.2
 
+- Offering dark mode/bright mode.
 - Using the elements' colors, if defined.
 - Refactored the code for better maintainability.
 
