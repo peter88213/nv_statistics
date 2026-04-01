@@ -87,12 +87,27 @@ class StatisticsView(tk.Toplevel, Observer, SubController):
         self.view.bind('<<NotebookTabChanged>>', self._onTabChange)
         self.activeFrame = self._frames[0][0]
 
+        # Footer bar.
+        footerBar = ttk.Frame(self)
+        footerBar.pack(fill='x')
+
+        # Color mode checkbox.
+        self._darkModeVar = tk.BooleanVar(
+            value=prefs['dark_mode'],
+        )
+        ttk.Checkbutton(
+            footerBar,
+            variable=self._darkModeVar,
+            text=_('Dark mode'),
+            command=self._change_color_mode,
+        ).pack(side='left', anchor='e', padx=5, pady=5)
+
         # "Close" button.
         ttk.Button(
-            self,
+            footerBar,
             text=_('Close'),
             command=self.on_quit,
-        ).pack(anchor='e', padx=5, pady=5)
+        ).pack(side='right', anchor='e', padx=5, pady=5)
 
         # Respond to windows resizing.
         self.redrawing = False
@@ -125,6 +140,18 @@ class StatisticsView(tk.Toplevel, Observer, SubController):
     def refresh(self, event=None):
         self.activeFrame.calculate()
         self.activeFrame.draw()
+
+    def _change_color_mode(self, event=None):
+        prefs['dark_mode'] = self._darkModeVar.get()
+        if prefs['dark_mode']:
+            prefs['color_background'] = 'black'
+            prefs['color_text'] = 'white'
+            prefs['color_filler'] = 'gray15'
+        else:
+            prefs['color_background'] = 'white'
+            prefs['color_text'] = 'black'
+            prefs['color_filler'] = 'gray80'
+        self.refresh()
 
     def _onTabChange(self, event=None):
         self.activeFrame = self._frames[self.view.index('current')][0]

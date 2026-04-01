@@ -4,7 +4,7 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_statistics
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
-from abc import ABC, abstractmethod
+from abc import ABC
 
 from nvlib.controller.sub_controller import SubController
 from nvstatistics.nvstatistics_globals import prefs
@@ -25,12 +25,10 @@ class StatisticsFrame(ABC, ScrollFrame, SubController):
         self._ctrl = controller
         self._HALF_BAR = self._BAR_HEIGHT / 2
         self._TEXT_MAX = self._LBL_WIDTH / 5
-        self.canvas['background'] = prefs['color_background']
         self.wordsTotal = 0
 
-    @abstractmethod
     def draw(self):
-        pass
+        self.canvas['background'] = prefs['color_background']
 
     def _adjust_scrollbar(self):
         totalBounds = self.canvas.bbox('all')

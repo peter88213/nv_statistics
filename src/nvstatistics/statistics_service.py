@@ -28,7 +28,9 @@ class StatisticsService(SubController):
         color_text='white',
         color_filler='gray15',
     )
-    OPTIONS = {}
+    OPTIONS = dict(
+        dark_mode=True,
+    )
 
     def __init__(self, model, view, controller):
         self._mdl = model

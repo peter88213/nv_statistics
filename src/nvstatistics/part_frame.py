@@ -36,6 +36,7 @@ class PartFrame(StatisticsFrame):
                         )
 
     def draw(self):
+        super().draw()
         try:
             wcNorm, x0, x3 = self._get_win_scaling()
         except:
