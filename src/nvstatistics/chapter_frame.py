@@ -46,7 +46,7 @@ class ChapterFrame(StatisticsFrame):
         for chId in self.chapterWords:
             barColor = (
                 self._mdl.novel.chapters[chId].color
-                or prefs['color_chapter']
+                or prefs['color_text']
             )
             title = textwrap.shorten(
                 self._mdl.novel.chapters[chId].title,

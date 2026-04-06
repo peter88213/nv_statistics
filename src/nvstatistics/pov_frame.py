@@ -48,7 +48,10 @@ class PovFrame(StatisticsFrame):
         y = self._LBL_HEIGHT
         self.canvas.delete("all")
         for crId in self.viewpointSections:
-            barColor = self._mdl.novel.characters[crId].color or prefs['color_viewpoint']
+            barColor = (
+                self._mdl.novel.characters[crId].color
+                or prefs['color_text']
+            )
             if self.viewpointSections[crId]:
                 y += self._LBL_HEIGHT
                 y1 = y

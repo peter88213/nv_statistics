@@ -44,7 +44,7 @@ class SectionFrame(StatisticsFrame):
         for scId in self.sectionWords:
             barColor = (
                 self._mdl.novel.sections[scId].color
-                or prefs['color_section']
+                or prefs['color_text']
             )
             title = textwrap.shorten(
                 self._mdl.novel.sections[scId].title,

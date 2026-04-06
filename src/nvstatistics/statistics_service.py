@@ -17,11 +17,6 @@ class StatisticsService(SubController):
     INI_FILEPATH = '.novx/config'
     SETTINGS = dict(
         window_geometry='510x440',
-        color_plotline='deepSkyBlue',
-        color_viewpoint='goldenrod1',
-        color_section='greenyellow',
-        color_part='aquamarine1',
-        color_chapter='green',
         color_stage1='red',
         color_stage2='orange',
         color_background='black',

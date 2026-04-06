@@ -49,7 +49,7 @@ class PartFrame(StatisticsFrame):
         for chId in self.partWords:
             barColor = (
                 self._mdl.novel.chapters[chId].color
-                or prefs['color_part']
+                or prefs['color_text']
             )
             title = textwrap.shorten(
                 self._mdl.novel.chapters[chId].title,

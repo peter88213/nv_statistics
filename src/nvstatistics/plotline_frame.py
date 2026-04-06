@@ -49,7 +49,7 @@ class PlotlineFrame(StatisticsFrame):
         for plId in self.plotlineSections:
             barColor = (
                 self._mdl.novel.plotLines[plId].color
-                or prefs['color_plotline']
+                or prefs['color_text']
             )
             y += self._LBL_HEIGHT
             y1 = y

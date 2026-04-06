@@ -150,7 +150,7 @@ class StatisticsView(tk.Toplevel, Observer, SubController):
         else:
             prefs['color_background'] = 'white'
             prefs['color_text'] = 'black'
-            prefs['color_filler'] = 'gray80'
+            prefs['color_filler'] = 'gray95'
         self.refresh()
 
     def _onTabChange(self, event=None):
