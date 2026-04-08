@@ -5,14 +5,14 @@
 ## Changelog
 
 
-### Version 5.8.3
+### Version 5.8.4
 
 - Offering dark mode/bright mode.
 - Using the elements' colors, if defined.
 - Refactored the code for better maintainability.
 
 API: 5.55
-Based on novelibre 5.55.9
+Based on novelibre 5.55.10
 
 
 ### Version 5.7.0
