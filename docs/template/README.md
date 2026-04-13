@@ -30,7 +30,7 @@ in all the used sections.
 
 ## Requirements
 
-- [novelibre](https://github.com/peter88213/novelibre/) version 5.55+
+- [novelibre](https://github.com/peter88213/novelibre/) version $ApiVersion+
 
 ## Download and install
 
