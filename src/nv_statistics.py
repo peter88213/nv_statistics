@@ -33,7 +33,7 @@ class Plugin(PluginBase):
     FEATURE = _('Project statistics view')
 
     def install(self, model, view, controller):
-        """Install the plugin.
+        """Install the plugin at runtime.
         
         Positional arguments:
             model -- reference to the novelibre main model instance.
@@ -48,7 +48,7 @@ class Plugin(PluginBase):
 
         #--- Configure the main menu.
 
-        # Create an entry in the Tools menu.
+        # Add an entry to the Tools menu.
         label = self.FEATURE
         self._ui.toolsMenu.add_command(
             label=label,
