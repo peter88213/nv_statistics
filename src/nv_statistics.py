@@ -15,20 +15,17 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 """
-import webbrowser
-
-from nvstatistics.nvstatistics_locale import _
 from nvlib.controller.plugin.plugin_base import PluginBase
+from nvstatistics.nvstatistics_locale import _
 from nvstatistics.statistics_service import StatisticsService
 
 
 class Plugin(PluginBase):
     """Statistics view plugin class."""
     VERSION = '@release'
-    API_VERSION = '5.55'
+    API_VERSION = '5.63'
     DESCRIPTION = 'A project statistics view'
     URL = 'https://github.com/peter88213/nv_statistics'
-    HELP_URL = f'{_("https://peter88213.github.io/nvhelp-en")}/nv_statistics'
 
     FEATURE = _('Project statistics view')
 
@@ -60,7 +57,7 @@ class Plugin(PluginBase):
         self._ui.toolsMenu.disableOnClose.append(label)
 
         # Add an entry to the Help menu.
-        label = _('Project statistics Online help')
+        label = _('Project statistics plugin help')
         self._ui.helpMenu.add_command(
             label=label,
             image=self._icon,
@@ -86,7 +83,7 @@ class Plugin(PluginBase):
         self.statisticsService.on_quit()
 
     def open_help(self, event=None):
-        webbrowser.open(self.HELP_URL)
+        self._ctrl.helpService.open_help_page('nv_statistics')
 
     def start_viewer(self):
         self.statisticsService.start_viewer(self.FEATURE)
