@@ -39,11 +39,18 @@ class Plugin(PluginBase):
 
         Extends the superclass method.
         """
+
         super().install(model, view, controller)
         self.statisticsService = StatisticsService(model, view, controller)
         self._icon = self._get_icon('statistics.png')
 
-        #--- Configure the main menu.
+        #--- Configure the user interface.
+
+        def start_viewer():
+            self.statisticsService.start_viewer(self.FEATURE)
+
+        def open_help():
+            self._ctrl.helpService.open_help_page('nv_statistics')
 
         # Add an entry to the Tools menu.
         label = self.FEATURE
@@ -51,7 +58,7 @@ class Plugin(PluginBase):
             label=label,
             image=self._icon,
             compound='left',
-            command=self.start_viewer,
+            command=start_viewer,
             state='disabled',
         )
         self._ui.toolsMenu.disableOnClose.append(label)
@@ -62,17 +69,15 @@ class Plugin(PluginBase):
             label=label,
             image=self._icon,
             compound='left',
-            command=self.open_help,
+            command=open_help,
         )
 
-        #--- Configure the toolbar.
-        self._ui.toolbar.add_separator(),
-
         # Put a button on the toolbar.
+        self._ui.toolbar.add_separator(),
         self._ui.toolbar.new_button(
             text=self.FEATURE,
             image=self._icon,
-            command=self.start_viewer,
+            command=start_viewer,
             disableOnLock=False,
         ).pack(side='left')
 
@@ -81,10 +86,4 @@ class Plugin(PluginBase):
 
     def on_quit(self):
         self.statisticsService.on_quit()
-
-    def open_help(self, event=None):
-        self._ctrl.helpService.open_help_page('nv_statistics')
-
-    def start_viewer(self):
-        self.statisticsService.start_viewer(self.FEATURE)
 
