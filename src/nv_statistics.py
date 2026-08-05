@@ -26,6 +26,7 @@ class Plugin(PluginBase):
     API_VERSION = '5.63'
     DESCRIPTION = 'A project statistics view'
     URL = 'https://github.com/peter88213/nv_statistics'
+    HELP_PAGE = 'nv_statistics'
 
     FEATURE = _('Project statistics view')
 
@@ -49,9 +50,6 @@ class Plugin(PluginBase):
         def start_viewer():
             self.statisticsService.start_viewer(self.FEATURE)
 
-        def open_help():
-            self._ctrl.helpService.open_help_page('nv_statistics')
-
         # Add an entry to the Tools menu.
         label = self.FEATURE
         self._ui.toolsMenu.add_command(
@@ -63,14 +61,7 @@ class Plugin(PluginBase):
         )
         self._ui.toolsMenu.disableOnClose.append(label)
 
-        # Add an entry to the Help menu.
-        label = _('Project statistics plugin help')
-        self._ui.helpMenu.add_command(
-            label=label,
-            image=self._icon,
-            compound='left',
-            command=open_help,
-        )
+        self._add_help_menu_entry(_('Project statistics plugin help'))
 
         # Put a button on the toolbar.
         self._ui.toolbar.add_separator(),
