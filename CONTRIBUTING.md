@@ -72,7 +72,7 @@ See the [novelibre CONTRIBUTING page](https://github.com/peter88213/novelibre/bl
 └── nv_statistics/
     ├── i18n/
     ├── src/
-	 │   └── nvstatistics/
+    │   └── nvstatistics/
     └── tools/ 
         └── build.py
 ```
